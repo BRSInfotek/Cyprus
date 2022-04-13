@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited v2020 rel. 1.1 U (http://www.cypruserp.com) by Mukesh (Cyprus, Inc.) -->
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+   version="2.4">
+	<display-name>Cyprus Root</display-name>
+	<description></description>
+	<context-param>
+		<param-name>ServerRoot</param-name>
+		<param-value>1</param-value>
+	</context-param>
+	<filter>
+		<display-name>Cyprus Monitor Filter</display-name>
+		<filter-name>CyprusMonitorFilter</filter-name>
+		<filter-class>org.cyprusbrs.web.CyprusMonitorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CyprusMonitorFilter</filter-name>
+		<url-pattern>/cyprusMonitor/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<description>Cyprus Server Status Info</description>
+		<display-name>Server Status</display-name>
+		<servlet-name>StatusInfo</servlet-name>
+		<servlet-class>org.cyprusbrs.web.StatusInfo</servlet-class>
+	</servlet>
+	<servlet>
+		<description>Cyprus Server Monitor</description>
+		<display-name>Cyprus Monitor</display-name>
+		<servlet-name>CyprusMonitor</servlet-name>
+		<servlet-class>org.cyprusbrs.web.CyprusMonitor</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StatusInfo</servlet-name>
+		<url-pattern>/statusInfo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CyprusMonitor</servlet-name>
+		<url-pattern>/cyprusMonitor/*</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>cyprus.html</welcome-file>
+	</welcome-file-list>
+</web-app>

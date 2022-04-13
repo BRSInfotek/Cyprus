@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================== -->
+<!-- Cyprus Distribution Setup                            -->
+<!-- ====================================================== -->
+<!-- $Header: /cvs/cyprus/install/Cyprus/build.xml,V 1.1 2021/01/01 Sanjiv/Mukesh Exp $-->
+
+<project name="setup" default="setup" basedir=".">
+
+	<description>
+	This buildfile is used to setup the Cyprus Environment.
+	</description>
+
+	<property environment="env" />
+	<property name="envFile" value="CyprusEnv.properties" />
+ 	<property name="server" value="nas" />
+
+	<patternset id="manifest.exclude">
+	  <exclude name="META-INF/*.DSA"/>
+	  <exclude name="META-INF/*.RSA"/>
+	  <exclude name="META-INF/*.SF"/>
+	  <exclude name="META-INF/MANIFEST.MF"/>
+	  <exclude name="META-INF/INDEX.LIST"/>
+	</patternset>
+
+	<!-- ==================================================== -->
+	<!-- Init                                                 -->
+	<!-- ==================================================== -->
+	<target name="setupInit"
+		description="initialization target">
+
+		<echo message="Cyprus Server Setup ===================" />
+		<echo message="CYPRUS_HOME = ${env.CYPRUS_HOME}" />
+
+		<!-- create the time stamp and environment -->
+		<tstamp />
+		<available file="${envFile}" property="envFileExists" />
+		<available file="lib/CyprusOriginal.jar" type="file" property="cyprusOriginal.exists"/>
+		<available file="lib/webuiOriginal.war" type="file" property="webuiOriginal.exists"/>
+		<fail message="**** RUN_setup was not successful - please re-run ****" unless="envFileExists" />
+		<property file="${envFile}"/>
+		<filter filtersfile="${envFile}" />
+
+		<echo message="Environment   = ${envFile}" />
+		<echo message="Java VM       = ${CYPRUS_JAVA_TYPE}" />
+		<echo message="Database      = ${CYPRUS_DB_TYPE}" />
+		<echo message="Apps Server   = ${CYPRUS_APPS_TYPE}" />
+		<echo message="AppsDeployment= ${CYPRUS_APPS_DEPLOY}" />
+
+
+		<!-- Environment variables -->
+		<condition property="isWindows">
+			<os family="windows" />
+		</condition>
+		<condition property="isAppsJBoss">
+			<equals arg1="jboss" arg2="${CYPRUS_APPS_TYPE}" />
+		</condition>
+		<condition property="isAppsGlassfish">
+			<equals arg1="glassfish" arg2="${CYPRUS_APPS_TYPE}" />
+		</condition>
+		<echo message="Windows=${isWindows} JBoss=${isAppsJBoss} Glassfish=${isAppsGlassfish}" />
+
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Windows Setup                                        -->
+	<!-- ==================================================== -->
+	<target name="setupWin" depends="setupInit" if="isWindows"
+		description="Windows Setup">
+
+		<!--	Filter files No Overwrite	-->
+		<copy file="utils/myDBcopyTemplate.bat"
+			tofile="utils/myDBcopy.bat" filtering="yes" overwrite="no" />
+
+		<!--	Filter files Overwrite		-->
+		<copy file="utils/myEnvironmentTemplate.bat"
+			tofile="utils/myEnvironment.bat" filtering="yes" overwrite="yes" />
+
+		<copy file="utils/RUN_GetCyprusTemplate.bat"
+			tofile="utils/RUN_GetCyprus.bat" filtering="yes" overwrite="yes" />
+		<copy file="utils/RUN_PutExportTemplate.bat"
+			tofile="utils/RUN_PutExport.bat" filtering="yes" overwrite="yes" />
+		<copy file="utils/RUN_WinEnvTemplate.bat"
+			tofile="utils/RUN_WinEnv.bat" filtering="yes" overwrite="yes" />
+
+		<delete>
+			<fileset dir="." includes="**/*.sh" excludes="RUN_Cyprus.sh" />
+		</delete>
+
+	</target>
+
+
+	<!-- ==================================================== -->
+	<!-- Non Windows Setup                                    -->
+	<!-- ==================================================== -->
+	<target name="setupNonWin" depends="setupInit" unless="isWindows"
+		description="Non Windows Setup">
+
+		<!--	Filter files No Overwrite	-->
+		<copy file="utils/myDBcopyTemplate.sh"
+			tofile="utils/myDBcopy.sh" filtering="yes" overwrite="no" />
+
+		<!--	Filter files Overwrite		-->
+		<copy file="utils/myEnvironmentTemplate.sh"
+			tofile="utils/myEnvironment.sh" filtering="yes" overwrite="yes" />
+
+		<copy file="utils/RUN_GetCyprusTemplate.sh"
+			tofile="utils/RUN_GetCyprus.sh" filtering="yes" overwrite="yes" />
+		<copy file="utils/RUN_PutExportTemplate.sh"
+			tofile="utils/RUN_PutExport.sh" filtering="yes" overwrite="yes" />
+		<copy file="utils/RUN_UnixEnvTemplate.sh"
+			tofile="utils/RUN_UnixEnv.sh" filtering="yes" overwrite="yes" />
+
+		<!--	Fix OS stuff	-->
+		<fixcrlf srcdir="." eol="lf" eof="remove" includes="**/*.sh" />
+		<chmod dir="." perm="ugo+x" includes="**/*.sh" />
+
+		<delete>
+			<fileset dir="." includes="*.bat" excludes="RUN_Cyprus.bat" />
+			<fileset dir="utils" includes="**/*.bat" />
+		</delete>
+
+	</target>
+
+	<target name="backupCyprusOriginal" unless="cyprusOriginal.exists">
+		<copy file="lib/Cyprus.jar" tofile="lib/CyprusOriginal.jar" overwrite="yes" />
+	</target>
+	<target name="backupWebuiOriginal" unless="webuiOriginal.exists">
+		<copy file="lib/webui.war" tofile="lib/webuiOriginal.war" overwrite="yes" />
+	</target>
+
+	<!-- rebuild Cyprus.jar and webui.war to include possible customization and patches -->
+	<target name="setupALib" depends="setupInit, backupCyprusOriginal">
+	<!--	<delete file="lib/packages.jar" failonerror="false"/>
+		<jar jarfile="lib/packages.jar" duplicate="preserve"> -->
+			<!-- 2pack packages -->
+		<!--	<zipgroupfileset dir="packages" includes="**/lib/*.jar" casesensitive="no">
+				<patternset refid="manifest.exclude"/>
+			</zipgroupfileset>
+		</jar> -->
+		<jar jarfile="lib/Cyprus1.jar" index="yes" duplicate="preserve">
+			<!-- pack patches.jar and customization.jar into Cyprus.jar -->
+			<zipfileset src="lib/customization.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<!-- 2pack packages -->
+		<!--	<zipfileset src="lib/packages.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset> -->
+			<zipfileset src="lib/patches.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<!-- posterita packages -->
+			<zipfileset src="lib/posterita.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<zipfileset src="lib/CyprusOriginal.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<indexjars>
+				<pathelement path="lib/CyprusCLib.jar"/>
+				<pathelement path="lib/CyprusBrsJasperReqs.jar"/>
+			</indexjars>
+			<manifest>
+	        	<attribute name="Specification-Title" value="Cyprus"/>
+		        <attribute name="Specification-Version" value="${CYPRUS_VERSION}"/>
+		        <attribute name="Specification-Vendor" value="Cyprus"/>
+		        <attribute name="Implementation-Title" value="Cyprus ${CYPRUS_VERSION}"/>
+		        <attribute name="Implementation-Version" value="${CYPRUS_VERSION} ${DSTAMP}-${TSTAMP}"/>
+		        <attribute name="Implementation-Vendor" value="${CYPRUS_VENDOR}"/>
+		        <attribute name="Implementation-URL" value="https://www.cypruserp.com"/>
+		        <attribute name="Main-Class" value="org.cyprusbrs.Cyprus"/>
+		        <attribute name="Class-Path" value="CyprusSLib.jar"/>
+    		</manifest>
+	    </jar>
+
+		<!-- Sign Cyprus Jar -->
+		<signjar jar="lib/Cyprus1.jar" alias="${CYPRUS_KEYSTORECODEALIAS}"
+			storepass="${CYPRUS_KEYSTOREPASS}" keystore="${CYPRUS_KEYSTORE}" />
+		<copy file="lib/Cyprus1.jar" tofile="lib/Cyprus.jar" overwrite="yes" />
+
+		<!-- Sign patches Jar -->
+		<copy file="lib/patches.jar" tofile="lib/patches1.jar" overwrite="yes" />
+		<signjar jar="lib/patches1.jar" alias="${CYPRUS_KEYSTORECODEALIAS}"
+			storepass="${CYPRUS_KEYSTOREPASS}" keystore="${CYPRUS_KEYSTORE}" />
+		<copy file="lib/patches1.jar" tofile="lib/patches.jar" overwrite="yes" />
+
+		<!-- Sign customization Jar -->
+		<copy file="lib/customization.jar" tofile="lib/customization1.jar" overwrite="yes" />
+		<signjar jar="lib/customization1.jar" alias="${CYPRUS_KEYSTORECODEALIAS}"
+			storepass="${CYPRUS_KEYSTOREPASS}" keystore="${CYPRUS_KEYSTORE}" />
+		<copy file="lib/customization1.jar" tofile="lib/customization.jar" overwrite="yes" />
+
+		<!-- clean up -->
+		<delete  file="lib/Cyprus1.jar"/>
+		<delete  file="lib/patches1.jar"/>
+		<delete  file="lib/customization1.jar"/>
+	</target>
+
+	<!-- rebuild Cyprus.jar and webui.war to include possible customization and patches -->
+	<target name="setupWLib" depends="setupInit, backupWebuiOriginal">
+	<!--	<delete file="lib/zkpackages.jar" failonerror="false"/>
+		<jar jarfile="lib/zkpackages.jar" duplicate="preserve"> -->
+			<!-- 2pack zkpackages -->
+		<!--	<zipgroupfileset dir="zkpackages" includes="**/lib/*.jar" casesensitive="no">
+				<patternset refid="manifest.exclude"/>
+			</zipgroupfileset>
+		</jar> -->
+		<zip destfile="lib/webui1.war" duplicate="preserve">
+			<!-- pack zkpatches.jar and zkcustomization.jar into webui.war -->
+			<zipfileset src="lib/zkcustomization.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<!-- 2pack zkpackages -->
+		<!--	<zipfileset src="lib/zkpackages.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset> -->
+			<zipfileset src="lib/zkpatches.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<zipfileset src="lib/webuiOriginal.war" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+	    </zip>
+
+		<copy file="lib/webui1.war" tofile="lib/webui.war" overwrite="yes" />
+		<!-- clean up -->
+		<delete  file="lib/webui1.war"/>
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Cyprus Client Lib                                  -->
+	<!-- ==================================================== -->
+	<target name="setupCLib" depends="setupInit"
+		description="Setup Cyprus Client Lib">
+
+		<!-- Delete Old		-->
+		<delete file="lib/CyprusCLib.jar" failonerror="no" />
+		<delete file="lib/CClient.jar" failonerror="no" />
+		<delete file="lib/CTools.jar" failonerror="no" />
+
+		<!-- Create CyprusCLib.jar file 	-->
+		<jar jarfile="lib/CyprusCLib.jar" index="yes" duplicate="preserve">
+			<zipfileset src="lib/${CYPRUS_APPS_TYPE}.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<zipfileset src="lib/CCTools.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<zipfileset src="lib/oracle.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<zipfileset src="lib/postgresql.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+
+			<manifest>
+				<attribute name="Specification-Title" value="Cyprus Client Library" />
+				<attribute name="Specification-Version" value="${CYPRUS_MAIN_VERSION}" />
+				<attribute name="Specification-Vendor" value="Cyprus" />
+				<attribute name="Implementation-Title" value="CyprusCLib ${CYPRUS_MAIN_VERSION}" />
+				<attribute name="Implementation-Version" value="${CYPRUS_MAIN_VERSION} ${DSTAMP}-${TSTAMP}" />
+				<attribute name="Implementation-Vendor" value="Cyprus, Inc." />
+				<attribute name="Implementation-URL" value="https://www.cypruserp.com" />
+			</manifest>
+		</jar>
+
+		<echo message="KeyStore=${CYPRUS_KEYSTORE} - Alias=${CYPRUS_KEYSTORECODEALIAS}" />
+		<!-- Sign CyprusCLib Jar 		-->
+		<signjar jar="lib/CyprusCLib.jar" alias="${CYPRUS_KEYSTORECODEALIAS}"
+			storepass="${CYPRUS_KEYSTOREPASS}" keystore="${CYPRUS_KEYSTORE}" />
+
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Cyprus Server Lib                                  -->
+	<!-- ==================================================== -->
+	<target name="setupSLib" depends="setupInit"
+		description="Setup Cyprus Server Lib">
+
+		<!-- Delete Old		-->
+		<delete file="lib/CyprusSLib.jar" failonerror="no" />
+		<delete file="lib/CServer.jar" failonerror="no" />
+
+		<!-- Create CyprusSLib.jar file 	-->
+		<jar jarfile="lib/CyprusSLib.jar" index="yes" duplicate="preserve">
+			<zipfileset src="lib/CSTools.jar">
+				<patternset refid="manifest.exclude"/>
+				<exclude name="**/*.bsh"/>
+			</zipfileset>
+			<zipfileset src="lib/oracle.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<zipfileset src="lib/postgresql.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<zipfileset src="lib/CyprusBrsJasperReqs.jar" >
+				<patternset refid="manifest.exclude"/>
+			</zipfileset>
+			<manifest>
+				<attribute name="Specification-Title" value="Cyprus Server Library" />
+				<attribute name="Specification-Version" value="${CYPRUS_MAIN_VERSION}" />
+				<attribute name="Specification-Vendor" value="Cyprus" />
+				<attribute name="Implementation-Title" value="CyprusSLib ${CYPRUS_MAIN_VERSION}" />
+				<attribute name="Implementation-Version" value="${CYPRUS_MAIN_VERSION} ${DSTAMP}-${TSTAMP}" />
+				<attribute name="Implementation-Vendor" value="Cyprus, Inc." />
+				<attribute name="Implementation-URL" value="https://www.cypruserp.com" />
+			</manifest>
+		</jar>
+
+		<!-- Sign CyprusSLib Jar 		-->
+		<signjar jar="lib/CyprusSLib.jar" alias="${CYPRUS_KEYSTORECODEALIAS}"
+			storepass="${CYPRUS_KEYSTOREPASS}" keystore="${CYPRUS_KEYSTORE}" />
+		<delete dir="buildSLib" />
+
+		<!-- Sign CyprusBrsJasperReqs.jar for Java Web Start	-->
+		<signjar jar="lib/CyprusBrsJasperReqs.jar" alias="${CYPRUS_KEYSTORECODEALIAS}"
+		   	storepass="${CYPRUS_KEYSTOREPASS}" keystore="${CYPRUS_KEYSTORE}" />
+
+	</target>
+
+	<!-- Sign other application jars -->
+	<target name="signOtherJars" depends="setupInit" >
+		<!-- Sign CyprusRoot Jar 		-->
+		<copy file="lib/cyprusRoot.jar" tofile="lib/cyprusRoot1.jar" overwrite="yes" />
+		<signjar jar="lib/cyprusRoot1.jar" alias="${CYPRUS_KEYSTORECODEALIAS}"
+			storepass="${CYPRUS_KEYSTOREPASS}" keystore="${CYPRUS_KEYSTORE}" />
+		<copy file="lib/cyprusRoot1.jar" tofile="lib/cyprusRoot.jar" overwrite="yes" />
+		<delete file="lib/cyprusRoot1.jar"/>
+
+		<!-- Sign CyprusApps Jar 		-->
+		<copy file="lib/cyprusApps.jar" tofile="lib/cyprusApps1.jar" overwrite="yes" />
+		<signjar jar="lib/cyprusApps1.jar" alias="${CYPRUS_KEYSTORECODEALIAS}"
+			storepass="${CYPRUS_KEYSTOREPASS}" keystore="${CYPRUS_KEYSTORE}" />
+		<copy file="lib/cyprusApps1.jar" tofile="lib/cyprusApps.jar" overwrite="yes" />
+		<delete file="lib/cyprusApps1.jar"/>
+	</target>
+
+
+	<!-- ==================================================== -->
+	<!-- Setup Lib                                            -->
+	<!-- ==================================================== -->
+	<target name="setupLib" depends="setupInit, setupWin, setupNonWin, setupCLib, setupSLib, setupALib, setupWLib, signOtherJars"
+		description="Setup Cyprus Lib directory">
+
+		<!--	Filter files Overwrite			-->
+		<copy file="${basedir}/utils/ftpPutExportTemplate.txt"
+			tofile="${basedir}/utils/ftpPutExport.txt" filtering="yes" overwrite="yes" />
+		<copy file="${basedir}/utils/ftpGetCyprusTemplate.txt"
+			tofile="${basedir}/utils/ftpGetCyprus.txt" filtering="yes" overwrite="yes" />
+		<copy file="${basedir}/utils/cyprusDirectTemplate.jnlp"
+			tofile="${basedir}/lib/cyprusDirect.jnlp" filtering="yes" overwrite="yes" />
+
+		<!--	Create Client Zip		-->
+		<zip zipfile="${basedir}/lib/CyprusClient.zip">
+			<zipfileset dir="." prefix="Cyprus"
+				includes="*.html" />
+			<zipfileset dir="." prefix="Cyprus"
+				includes="RUN_Cyprus.*" />
+			<zipfileset dir="utils" prefix="Cyprus"
+				includes="WinEnv.js" />
+			<zipfileset dir="lib" prefix="Cyprus/lib"
+				includes="Cyprus.exe,*.ico,customization.jar,patches.jar,CyprusBrsJasperReqs.jar,Cyprus.jar,CyprusCLib.jar,cyprusDirect.jnlp,index.html,*.0" />
+		</zip>
+
+		<!--	Save properties		-->
+		<copy file="CyprusEnv.properties"
+			tofile="CyprusEnv.properties.save" />
+		<copy file="Cyprus.properties"
+			tofile="Cyprus.properties.save" />
+	</target>
+
+	<!-- Update application library -->
+	<target name="updateLib" depends="setupInit, setupWin, setupNonWin, setupALib, setupWLib, signOtherJars">
+		<!--	Create Client Zip		-->
+		<zip zipfile="${basedir}/lib/CyprusClient.zip">
+			<zipfileset dir="." prefix="Cyprus"
+				includes="*.html" />
+			<zipfileset dir="." prefix="Cyprus"
+				includes="RUN_Cyprus.*" />
+			<zipfileset dir="utils" prefix="Cyprus"
+				includes="WinEnv.js" />
+			<zipfileset dir="lib" prefix="Cyprus/lib"
+				includes="Cyprus.exe,*.ico,customization.jar,patches.jar,CyprusBrsJasperReqs.jar,Cyprus.jar,CyprusCLib.jar,cyprusDirect.jnlp,index.html,*.0" />
+		</zip>
+	</target>
+
+	<target name="createEAR">
+		<!-- Create cyprusRoot war		-->
+		<zip destfile="${basedir}/lib/cyprusRoot.war">
+			<!-- copy Base	-->
+			<zipfileset src="${basedir}/lib/cyprusRootBase.war" />
+			<!-- copy to cyprusHome	-->
+			<zipfileset dir="${basedir}/lib"
+				includes="CyprusClient.zip,Cyprus.jar,CyprusCLib.jar,*.jnlp,*.0,*.html,CyprusBrsJasperReqs.jar,CyprusBrsJasper.jar"
+				prefix="cyprusHome" />
+		</zip>
+
+		<!-- Create cyprusWebCM war		-->
+		<zip destfile="${basedir}/lib/cyprusWebCM.war">
+			<!-- copy Base	-->
+			<zipfileset src="${basedir}/lib/cyprusWebCMbase.war" />
+		</zip>
+
+		<antcall target="jbossEAR" inheritall="true"/>
+		<antcall target="glassfishEAR" inheritall="true"/>
+	</target>
+
+	<target name="jbossEAR" if="isAppsJBoss">
+		<!-- bundle everything in one ear file for simpler deployment -->
+		<ear destfile="${basedir}/lib/cyprus.ear" appxml="${basedir}/lib/cyprusAll.xml" >
+			<fileset dir="${basedir}/lib"
+				includes="Cyprus.jar,CyprusSLib.jar,cyprusRoot.jar,cyprusApps.jar,cyprusApps.war,cyprusRoot.war,cyprusWebStore.war,cyprusWebCM.war,posterita.war,posterita.jar,webui.war" />
+		</ear>
+	</target>
+
+	<target name="glassfishEAR" if="isAppsGlassfish">
+
+		<unzip src="${basedir}/lib/webui.war" dest="${basedir}/lib/webui"/>
+		<copy file="${basedir}/lib/webui/WEB-INF/web-2.5.xml" tofile="${basedir}/lib/webui/WEB-INF/web.xml" overwrite="true" />
+		<delete file="${basedir}/lib/webui.war"/>
+		<zip destfile="${basedir}/lib/webui.war" basedir="${basedir}/lib/webui" />
+		<delete dir="${basedir}/lib/webui"/>
+
+		<!-- bundle everything in one ear file for simpler deployment -->
+		<ear destfile="${basedir}/lib/cyprus.ear" appxml="${basedir}/lib/cyprusAll.xml" >
+			<fileset dir="${basedir}/lib"
+				includes="cyprusRoot.jar,cyprusApps.jar,cyprusApps.war,cyprusRoot.war,cyprusWebStore.war,cyprusWebCM.war,posterita.war,posterita.jar,webui.war" />
+			<metainf dir="${basedir}/glassfish" includes="sun-application.xml"/>
+		</ear>
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Setup EAR Libraries                                  -->
+	<!-- ==================================================== -->
+	<target name="setupEAR" depends="setupLib"
+		description="Setup Cyprus EAR Libraries">
+
+		<antcall target="createEAR" inheritall="true"/>
+	</target>
+
+	<target name="updateEAR" depends="updateLib">
+		<antcall target="createEAR" inheritall="true"/>
+	</target>
+
+	<!-- Update JBoss Server -->
+	<target name="updateJBoss" depends="updateEAR" if="isAppsJBoss"
+		description="Update JBoss Application Server">
+
+		<!-- Copy			-->
+		<echo message="AppsDeployment= ${CYPRUS_APPS_DEPLOY}" />
+		<!-- Deploy in exploded format for faster startup time -->
+		<unjar dest="${CYPRUS_APPS_DEPLOY}/cyprus.ear" src="${basedir}/lib/cyprus.ear" overwrite="true">
+		</unjar>
+	</target>
+
+    <!-- ==================================================== -->
+	<!-- Setup Glassfish (Sun Application Server)             -->
+	<!-- ==================================================== -->
+	<target name="setupGlassfish" depends="setupLib, setupEAR" if="isAppsGlassfish"
+		description="Setup Glassfish Application Server">
+		<copy file="${basedir}/lib/cyprus.ear" tofile="${basedir}/glassfish/cyprus.ear"/>
+		<copy file="${basedir}/lib/Cyprus.jar" tofile="${basedir}/glassfish/Cyprus.jar"/>
+		<copy file="${basedir}/lib/CyprusSLib.jar" tofile="${basedir}/glassfish/CyprusSLib.jar"/>
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Setup JBoss Server                                   -->
+	<!-- ==================================================== -->
+	<target name="setupJBoss" depends="setupEAR" if="isAppsJBoss"
+		description="Setup JBoss Application Server">
+
+		<!-- Filter JBoss Templates Conf	-->
+		<copy file="${basedir}/jboss/server/cyprus/conf/jboss-serviceTemplate.xml" tofile="${basedir}/jboss/server/cyprus/conf/jboss-service.xml" filtering="yes" overwrite="yes" />
+		<copy file="${basedir}/jboss/server/cyprus/conf/login-configTemplate.xml" tofile="${basedir}/jboss/server/cyprus/conf/login-config.xml" filtering="yes" overwrite="yes" />
+
+		<!-- Filter Tomcat 6.0 				-->
+		<copy file="${basedir}/jboss/server/cyprus/deploy/jboss-web.deployer/serverTemplate.xml" tofile="${basedir}/jboss/server/cyprus/deploy/jboss-web.deployer/server.xml" filtering="yes" overwrite="yes" />
+
+		<!-- Delete Old		-->
+		<delete file="${basedir}/jboss/server/cyprus/lib/CClient.jar" failonerror="no" />
+		<delete file="${basedir}/jboss/server/cyprus/lib/CSTools.jar" failonerror="no" />
+		<delete file="${basedir}/jboss/server/cyprus/lib/CServer.jar" failonerror="no" />
+		<delete file="${basedir}/jboss/server/cyprus/lib/oracle.jar" failonerror="no" />
+
+		<!-- Copy			-->
+		<echo message="AppsDeployment= ${CYPRUS_APPS_DEPLOY}" />
+		<!-- Deploy in exploded format for faster startup time -->
+		<unjar dest="${CYPRUS_APPS_DEPLOY}/cyprus.ear" src="${basedir}/lib/cyprus.ear" overwrite="true">
+		</unjar>
+	</target>
+
+
+	<!-- ==================================================== -->
+	<!-- Update J2EE Server                                   -->
+	<!-- ==================================================== -->
+	<target name="updateDeploy" depends="updateJBoss"
+		description="Update Cyprus Application Server">
+		<echo message="AppsDeployment= ${CYPRUS_APPS_DEPLOY}" />
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Deploy J2EE Server                                   -->
+	<!-- ==================================================== -->
+	<target name="setupDeploy" depends="setupJBoss, setupGlassfish"
+		description="Deploy Cyprus Application Server">
+		<echo message="AppsDeployment= ${CYPRUS_APPS_DEPLOY}" />
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Update (Main)                                         -->
+	<!-- ==================================================== -->
+	<target name="update" depends="updateDeploy"
+		description="Update Cyprus Deployment">
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Setup (Main)                                         -->
+	<!-- ==================================================== -->
+	<target name="setup" depends="setupDeploy"
+		description="Setup Cyprus">
+	</target>
+
+
+	<!-- ==================================================== -->
+	<!-- Test - Copy                                          -->
+	<!-- ==================================================== -->
+	<target name="testsystemCopy"
+		description="Copy Cyprus to Test System">
+
+		<delete dir="lib" />
+		<delete dir="jboss" />
+		<delete dir="log" />
+		<unzip src="\\\\Dev1\\Cyprus\\Install\\Cyprus_253d.zip"
+			overwrite="true" />
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Test - Import DB                                     -->
+	<!-- ==================================================== -->
+	<target name="testsystemImport" depends="setup"
+		description="Import Cyprus DB">
+
+		<exec command="${basedir}/lib/RUN_CyprusImport" />
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Test - Setup                                         -->
+	<!-- ==================================================== -->
+	<target name="testsystemSetup" depends="testsystemCopy, testsystemImport"
+		description="Set up Test System">
+
+	</target>
+
+	<!-- ==================================================== -->
+	<!-- Shutting down server, setting up cyprus and importing database -->
+	<!-- ==================================================== -->
+	<target name="cleanall" description="shutdown,settingup and importing database">
+
+		<echo message="================Cyprus Server Shutdown ===================" />
+		<echo message="OS      = ${os.name}" />
+
+		<!-- Shutting down server by calling the RUN_Stop.bat  or RUN_Stop.sh script in Cyprus dir	-->
+		<exec dir="${env.CYPRUS_HOME}\utils" executable="cmd" os="Windows XP, Windows 2000, Windows NT" >
+		  <arg line="/c RUN_Stop.bat"/>
+		</exec>
+
+		<exec dir="${env.CYPRUS_HOME}\utils" executable="/bin/sh" os="SunOS,unix">
+		  <arg value="-c" />
+		  <arg value="RUN_Stop.sh" />
+		</exec>
+
+		<echo message="================Cyprus Server Shutdown Complete===================" />
+		<sleep seconds="2"/>
+		<!-- Deleting all the log files, jboss dir and log dir in ${env.CYPRUS_HOME} directory -->
+		<delete>
+			<fileset dir="${env.CYPRUS_HOME}" includes="*.log" />
+		</delete>
+		<delete dir="${env.CYPRUS_HOME}\jboss" />
+		<delete dir="${env.CYPRUS_HOME}\log" />
+
+		<echo message="=========== ftp to nas and download the current build==============="/>
+		<ftp action= "get"
+			server="${server}"
+			userid="guest"
+			password="">
+			<fileset  dir="${env.CYPRUS_HOME}">
+				<include name="**/Cyprus_253d.zip"/>
+			</fileset>
+		</ftp>
+
+		<!-- unzip and overwrite them and delete the downloaded directory -->
+		<unzip src="${env.CYPRUS_HOME}/Disk 1/Cyprus_253a.zip" dest="${env.CYPRUS_HOME}\..\"  overwrite="yes" />
+		<delete dir="${env.CYPRUS_HOME}/Disk 1"/>
+
+		<echo message="======================Setup cyprus==============================" />
+		<ant inheritAll="false" dir="${env.CYPRUS_HOME}" target="setup"/>
+
+		<!-- Importing the database -->
+		<exec dir="${env.CYPRUS_HOME}\utils" executable="cmd" os="Windows XP, Windows 2000, Windows NT" >
+		  <arg line="/c  RUN_ImportCyprus.bat"/>
+		</exec>
+		<exec dir="${env.CYPRUS_HOME}\utils" executable="/bin/sh" os="SunOS,unix">
+		  <arg value="-c" />
+		  <arg value="RUN_ImportCyprus.sh" />
+		</exec>
+
+	</target>
+
+</project>

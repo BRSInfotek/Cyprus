@@ -1,0 +1,7 @@
+open @CYPRUS_FTP_SERVER@
+@CYPRUS_FTP_USER@
+@CYPRUS_FTP_PASSWORD@
+bin
+put ExpDat.jar @CYPRUS_FTP_PREFIX@_ExpDat.jar
+ls @CYPRUS_FTP_PREFIX@_ExpDat.jar
+quit

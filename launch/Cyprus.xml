@@ -1,0 +1,44 @@
+<launch4jConfig>
+  <dontWrapJar>true</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar></jar>
+  <outfile>Release/Cyprus.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <customProcName>true</customProcName>
+  <stayAlive>false</stayAlive>
+  <manifest></manifest>
+  <icon>Cyprus.ico</icon>
+  <classPath>
+    <mainClass>org.cyprusbrs.Cyprus</mainClass>
+    <cp>customization.jar</cp>
+    <cp>patches.jar</cp>
+    <cp>Cyprus.jar</cp>
+    <cp>CyprusCLib.jar</cp>
+    <cp>CyprusBrsJasperReqs.jar</cp>
+  </classPath>
+  <jre>
+    <path></path>
+    <minVersion>1.6.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <initialHeapSize>48</initialHeapSize>
+    <maxHeapSize>512</maxHeapSize>
+  </jre>
+  <versionInfo>
+    <fileVersion>3.6.0.0</fileVersion>
+    <txtFileVersion>Release 3.6.0LTS</txtFileVersion>
+    <fileDescription>Cyprus ERP &amp; CRM 3.6.0LTS</fileDescription>
+    <copyright>Cyprus</copyright>
+    <productVersion>3.6.0.0</productVersion>
+    <txtProductVersion>Release 3.6.0LTS</txtProductVersion>
+    <productName>Adempier ERP &amp; CRM</productName>
+    <companyName>Cyprus Bazaar</companyName>
+    <internalName>Cyprus</internalName>
+    <originalFilename>Cyprus.exe</originalFilename>
+  </versionInfo>
+</launch4jConfig>

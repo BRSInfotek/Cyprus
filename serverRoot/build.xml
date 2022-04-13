@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<!-- ============================================= -->
+<!-- Cyprus Server Root                          -->
+<!-- ============================================= -->
+<!-- $Header: /cvs/cyprus/serverRoot/build.xml,v 1.4 2006/06/10 21:58:02 jjanke Exp $-->
+
+<project name="cyprusRoot" default="main" basedir=".">
+
+  <!--<property environment="env"/>-->
+  <import file="../utils_dev/properties.xml"/>
+
+  <property name="src.dir" value="${basedir}/src"/>
+  <property name="src.main.dir" value="${src.dir}/main"/>
+  <property name="src.ear.dir" value="${src.dir}/ear"/>
+  <property name="src.ejb.dir" value="${src.main.dir}/ejb"/>
+  <property name="src.servlet.dir" value="${src.main.dir}/servlet"/>
+  <property name="src.server.dir" value="${src.main.dir}/server"/>
+  <property name="src.resources.dir" value="${src.dir}/resources"/>
+  <property name="src.web.dir" value="${src.dir}/web"/>
+
+  <property name="build.dir" value="${basedir}/build"/>
+  <property name="build.tmp.dir" value="${build.dir}/tmp"/>
+  <property name="build.deploy.dir" value="${build.dir}/deploy"/>
+  <property name="build.classes.dir" value="${build.dir}/classes"/>
+  <property name="build.war.dir" value="${build.dir}/war"/>
+
+  <target name="cyprusRootInit">
+    <echo message="=========== Build Server Root"/>
+  </target>
+
+
+  <path id="base.path">
+    <pathelement location="../lib/Cyprus.jar" />
+    <pathelement location="../lib/CSTools.jar" />
+    <pathelement location="../tools/lib/j2ee.jar" />
+	<pathelement location="../tools/lib/jnlp.jar" />
+	<pathelement location="../tools/lib/servlet-api.jar" />
+	<pathelement location="../tools/lib/mail.jar" />
+	<pathelement location="../tools/lib/bsh-1.3.0.jar" />
+	<pathelement location="../tools/lib/junit.jar" />
+  	<pathelement location="../tools/lib/cron4j-2.2.1.jar" />
+	<pathelement location="../lib/oracle.jar" />
+	<pathelement location="../lib/jboss.jar" />
+	<pathelement location="../lib/postgresql.jar" />
+    <pathelement location="${build.classes.dir}" />
+  </path>
+
+
+  <!-- =================================================================== -->
+  <!-- Copy JBoss specific deployment descriptor     					   -->
+  <!-- =================================================================== -->
+  <target name="cyprusRootXml" depends="cyprusRootInit">
+  	<copyfile dest="${build.dir}/META-INF/jboss.xml" src="${src.ejb.dir}/jboss.xml"/>
+  	<copyfile dest="${build.dir}/META-INF/sun-ejb-jar.xml" src="${src.ejb.dir}/sun-ejb-jar.xml"/>
+  </target>
+
+
+  <!-- =========================================== -->
+  <!-- Compiles the source code                    -->
+  <!-- =========================================== -->
+  <target name="cyprusRootCompile" depends="cyprusRootXml">
+    <mkdir dir="${build.classes.dir}"/>
+
+    <!--	Compile all -->
+    <javac
+      target="1.8" encoding="UTF-8"
+	  destdir="${build.classes.dir}"
+	  debug="on"
+	  deprecation="off"
+	  optimize="on"
+      classpathref="base.path">
+      <src path="${src.ejb.dir}"/>
+      <src path="${src.servlet.dir}"/>
+      <src path="${src.server.dir}"/>
+    </javac>
+
+  </target>
+
+
+  <!-- =========================================== -->
+  <!-- Creates the jar archives                    -->
+  <!-- =========================================== -->
+  <target name="cyprusRootJar" depends="cyprusRootCompile">
+    <mkdir dir="${build.deploy.dir}"/>
+
+    <!--	Jar -->
+    <jar
+	  jarfile="${build.deploy.dir}/cyprusRoot.jar">
+      <fileset
+	    dir="${build.classes.dir}">
+      </fileset>
+      <fileset
+	    dir="${build.dir}"
+	    includes="META-INF/**">
+      </fileset>
+      <manifest>
+		<attribute name="Specification-Title" value="CyprusRoot"/>
+		<attribute name="Specification-Version" value="${env.CYPRUS_VERSION}"/>
+		<attribute name="Specification-Vendor" value="Cyprus"/>
+		<attribute name="Implementation-Title" value="CyprusRoot ${env.CYPRUS_VERSION}"/>
+		<attribute name="Implementation-Version" value="${env.CYPRUS_VERSION} ${DSTAMP}-${TSTAMP}"/>
+		<attribute name="Implementation-Vendor" value="${env.CYPRUS_VENDOR}"/>
+		<attribute name="Implementation-URL" value="http://www.cypruserp.com"/>
+		<attribute name="Class-Path" value="Cyprus.jar CyprusSLib.jar"/>
+      </manifest>
+    </jar>
+
+  </target>
+
+  <!-- =========================================== -->
+  <!-- Creates the war archives                    -->
+  <!-- =========================================== -->
+  <target name="cyprusRootWar" depends="cyprusRootJar">
+    <war
+	  warfile="${build.deploy.dir}/cyprusRootBase.war"
+	  webxml="${src.web.dir}/WEB-INF/web.xml">
+	  <!-- copy from web		-->
+      <fileset dir="${src.web.dir}" excludes="**/web.xml,**/lib/**,**/classes/**"/>
+      <!-- WEB-INF/lib			-->
+      <lib dir="${src.web.dir}/WEB-INF/lib"/>
+      <manifest>
+		<attribute name="Specification-Title" value="CyprusRootWar"/>
+		<attribute name="Specification-Version" value="${env.CYPRUS_VERSION}"/>
+		<attribute name="Specification-Vendor" value="Cyprus"/>
+		<attribute name="Implementation-Title" value="CyprusRootWar ${env.CYPRUS_VERSION}"/>
+		<attribute name="Implementation-Version" value="${env.CYPRUS_VERSION} ${DSTAMP}-${TSTAMP}"/>
+		<attribute name="Implementation-Vendor" value="${env.CYPRUS_VENDOR}"/>
+		<attribute name="Implementation-URL" value="http://www.cypruserp.com"/>
+		<attribute name="Class-Path" value="Cyprus.jar CyprusSLib.jar"/>
+      </manifest>
+    </war>
+  </target>
+
+
+  <!-- =========================================== -->
+  <!-- Deploy Server Files		                   -->
+  <!-- =========================================== -->
+  <target name="cyprusRootDeployServer" depends="cyprusRootJar,cyprusRootWar,cyprusRootCompile">
+	<copy todir="../lib">
+		<fileset dir="${build.deploy.dir}"/>
+	</copy>
+	<copy file="${src.ear.dir}/application.xml" 
+		tofile="../lib/cyprusRoot.xml"/>
+  </target>
+
+
+  <!-- =========================================== -->
+  <!-- Creates the binary structure                -->
+  <!-- =========================================== -->
+  <target name="main" depends="cyprusRootDeployServer">
+  </target>
+
+
+  <!-- =========================================== -->
+  <!-- Cleans up the current build                 -->
+  <!-- =========================================== -->
+  <target name="clean">
+    <delete dir="${build.dir}" failonerror="false"/>
+    <delete file="../lib/cyprusRootBase.war"/>
+    <delete file="../lib/cyprusRoot.jar"/>
+    <delete file="../lib/cyprusRoot.xml"/>
+  </target>
+
+</project>

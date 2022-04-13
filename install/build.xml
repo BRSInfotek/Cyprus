@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ============================================= -->
+<!-- Cyprus Installer build file                 -->
+<!-- ============================================= -->
+<!-- $Header: /cvs/cyprus/install/build.xml,v 1.7 2006/07/24 08:20:55 comdivision Exp $-->
+
+<project name="install" default="installDistribution" basedir=".">
+
+  <description>
+	This buildfile is used to create the Cyprus installer.
+  </description>
+
+  <!--<property environment="env"/>-->
+  <import file="../utils_dev/properties.xml"/>
+  <property name="cyprus.dir" value="../"/>
+  <property name="web.dir" value="../../cyprusWeb"/>
+  <property name="dbStartup.dir" value="../db/database/Startup"/>
+  <property name="lib.dir" value="../lib"/>
+  <property name="utils.dir" value="../utils"/>
+  <property name="launch.dir" value="../launch"/>
+  <property name="keystore.dir" value="../keystore"/>
+  <property name="data.dir" value="../data"/>
+  <property name="jboss.dir" value="../jboss"/>
+
+  <property name="src" value="src"/>
+  <property name="compile.dir" value="lib"/>
+
+  <property name="src.dir" value="${basedir}/Cyprus"/>
+  <property name="build.dir" value="${basedir}/build"/>
+
+  <path id="project.class.path">
+	<pathelement path="${classpath}"/>
+	<pathelement path="${lib.dir}/CCTools.jar"/>
+	<pathelement path="${lib.dir}/Cyprus.jar"/>
+	<pathelement path="${lib.dir}/oracle.jar"/>
+	<pathelement path="${lib.dir}/postgresql.jar"/>
+	<pathelement path="../tools/lib/ant.jar"/>
+	<pathelement path="../tools/lib/ant-launcher.jar"/>
+  </path>
+
+  <patternset id="manifest.exclude">
+	<exclude name="META-INF/*.DSA"/>
+	<exclude name="META-INF/*.RSA"/>
+	<exclude name="META-INF/*.SF"/>
+	<exclude name="META-INF/MANIFEST.MF"/>
+	<exclude name="META-INF/INDEX.LIST"/>
+  </patternset>
+  <!-- ======================================================= -->
+  <!-- Init                                                    -->
+  <!-- ======================================================= -->
+  <target name="installInit" description="initialization target">
+	<echo message="=========== Build Install - ${env.ENCODING}"/>
+	<!-- create the time stamp -->
+	<tstamp/>
+	<mkdir dir="${build.dir}"/>
+	<mkdir dir="${compile.dir}"/>
+  </target>
+
+  <!-- ======================================================= -->
+  <!-- Compile & Jar                                           -->
+  <!-- ======================================================= -->
+  <target name="installCompile" depends="installInit">
+	<!-- compile the java code from ${src} into ${build.dir} -->
+	<javac target="1.8" encoding="UTF-8" srcdir="${src}" destdir="${compile.dir}" deprecation="on" debug="on">
+	  <classpath refid="project.class.path"/>
+	</javac>
+	<!-- copy all image & sound files from src to the build directory -->
+	<copy todir="${compile.dir}">
+	  <fileset dir="${src}">
+		<include name="**/images/*"/>
+		<include name="**/*.gif"/>
+		<include name="**/*.jpg"/>
+		<include name="**/*.wav"/>
+		<include name="**/*.htm"/>
+		<include name="**/*.html"/>
+		<include name="**/*.properties"/>
+		<exclude name="**/package.html"/>
+	  </fileset>
+	</copy>
+	
+		<!-- put everything into the $CInstall.jar file -->
+	<jar
+	  jarfile="CInstall.jar"
+	  index="yes"
+	  duplicate="preserve">
+	  <fileset dir="${compile.dir}"/>
+	  <!-- Ant (with ftp) files -->
+	  <zipfileset src="../tools/lib/ant.jar" >
+		<patternset refid="manifest.exclude"/>
+	  </zipfileset>
+	  <zipfileset src="../tools/lib/ant-launcher.jar" >
+		<patternset refid="manifest.exclude"/>
+	  </zipfileset>
+	  <zipfileset src="../tools/lib/ant-commons-net.jar" >
+		<patternset refid="manifest.exclude"/>
+	  </zipfileset>
+	  <zipfileset src="../tools/lib/commons-net-1.4.0.jar" >
+		<patternset refid="manifest.exclude"/>
+	  </zipfileset>
+			
+	  <manifest>
+		<attribute name="Specification-Title" value="CInstall"/>
+		<attribute name="Specification-Version" value="${env.CYPRUS_VERSION}"/>
+		<attribute name="Specification-Vendor" value="Cyprus.org"/>
+		<attribute name="Implementation-Title" value="CInstall ${env.CYPRUS_VERSION}"/>
+		<attribute name="Implementation-Version" value="${env.CYPRUS_VERSION} ${DSTAMP}-${TSTAMP}"/>
+		<attribute name="Implementation-Vendor" value="${env.CYPRUS_VENDOR}"/>
+		<attribute name="Implementation-URL" value="http://www.cypruserp.com"/>
+		<attribute name="Main-Class" value="org.cyprusbrs.install.Setup"/>
+		<attribute name="Class-Path" value="CTools.jar CClient.jar oracle.jar"/>
+	  </manifest>
+	</jar>
+
+  </target>
+
+
+  <!-- ======================================================= -->
+  <!-- Update from Web Site + Clean .sh                        -->
+  <!-- ======================================================= -->
+  <target name="installUpdate" depends="installCompile"
+	description="Update install directory with copies of web site">
+
+	<fixcrlf srcdir="${src.dir}"
+		eol="lf" eof="remove"
+		includes="**/*.sh"/>
+	<fixcrlf srcdir="${utils.dir}"
+		eol="lf" eof="remove"
+		includes="**/*.sh"/>
+	<fixcrlf srcdir="${utils.dir}/unix"
+		eol="lf" eof="remove"
+		includes="*"/>
+	<fixcrlf srcdir="../sqlj/oracle"
+		eol="lf" eof="remove"
+		includes="*.sh"/>
+  </target>
+
+
+  <!-- ======================================================= -->
+  <!-- Create Distribution                                     -->
+  <!-- ======================================================= -->
+  <target name="installDistribution" depends="installUpdate">
+	<mkdir dir="${build.dir}"/>
+	<mkdir dir="${build.dir}/Cyprus"/>
+	<mkdir dir="${build.dir}/Cyprus/images"/>
+  <!--	<mkdir dir="${build.dir}/Cyprus/packages"/>
+  	<mkdir dir="${build.dir}/Cyprus/zkpackages"/> -->
+  	<mkdir dir="${build.dir}/Cyprus/keystore"/>
+  	
+<!--	<mkdir dir="${build.dir}/Cyprus/packages/liberoMFG"/>
+	<mkdir dir="${build.dir}/Cyprus/packages/liberoMFG/lib"/>
+  	<copy file="../packages/liberoMFG.jar" tofile="${build.dir}/Cyprus/packages/liberoMFG/lib/liberoMFG.jar"/> -->
+  	<copy file="${keystore.dir}/myKeystore" tofile="${build.dir}/Cyprus/keystore/myKeystore"/>
+  	
+<!--	<mkdir dir="${build.dir}/Cyprus/zkpackages/liberoMFG"/>
+	<mkdir dir="${build.dir}/Cyprus/zkpackages/liberoMFG/lib"/>
+  	<copy file="../zkpackages/liberozkMFG.jar" tofile="${build.dir}/Cyprus/zkpackages/liberoMFG/lib/liberozkMFG.jar"/>
+  	
+  	<mkdir dir="${build.dir}/Cyprus/packages/liberoHR"/>
+  	<mkdir dir="${build.dir}/Cyprus/packages/liberoHR/lib"/>
+  	<copy file="../packages/liberoHR.jar" tofile="${build.dir}/Cyprus/packages/liberoHR/lib/liberoHR.jar"/> -->
+
+  	<copy file="../lib/CheckConflicts.sh" tofile="${build.dir}/Cyprus/lib/CheckConflicts.sh"/>
+
+	<!-- Base Directory			-->
+	<copy todir="${build.dir}/Cyprus">
+	  <fileset dir="${src.dir}"/>
+	</copy>
+	<copy todir="${build.dir}/Cyprus/images">
+	  <fileset dir="${src.dir}/images"/>
+	</copy>
+<!--	<copy file="${utils.dir}/RUN_Cyprus.bat" todir="${build.dir}/Cyprus/"/> -->
+<!--	<copy file="${utils.dir}/RUN_Cyprus.sh" todir="${build.dir}/Cyprus/"/> -->
+
+
+	<!-- Lib Directory			-->
+	<mkdir dir="${build.dir}/Cyprus/lib"/>
+	<copy file="${launch.dir}/Cyprus.ico" tofile="${build.dir}/Cyprus/lib/Cyprus.ico"/>
+	<!-- copy file="${launch.dir}/jlaunchs.ico" tofile="${build.dir}/Cyprus/lib/Cypruss.ico"/-->
+	<copy todir="${build.dir}/Cyprus/lib">
+	  <fileset dir="${lib.dir}">
+	  	<include name="**/*ar"/>
+	  	<include name="**/*xml"/>
+	  	<include name="**/*0"/>
+	  </fileset>
+	</copy>
+	<copy file="${launch.dir}/Release/Cyprus.exe" todir="${build.dir}/Cyprus/lib"/>
+	<copy file="CInstall.jar" todir="${build.dir}/Cyprus/lib"/>
+	<copy file="../sqlj/sqlj.jar" todir="${build.dir}/Cyprus/lib"/>
+	<copy file="../JasperReports/CyprusBrsJasperReqs.jar" todir="${build.dir}/Cyprus/lib"/>
+	<concat destfile="${build.dir}/Cyprus/lib/index.html">CyprusHome</concat>
+
+
+	<!-- Utils Directory		-->
+	<mkdir dir="${build.dir}/Cyprus/utils"/>
+	<copy todir="${build.dir}/Cyprus/utils">
+	  <fileset dir="${utils.dir}" excludes="**/pg/**,.project"/>
+	</copy>
+	<copy todir="${build.dir}/Cyprus/utils/oracle">
+	  <fileset dir="${dbStartup.dir}/oracle" includes="*.sql"/>
+	  <fileset dir="../sqlj/oracle/"/>
+	</copy>
+	<copy todir="${build.dir}/Cyprus/utils/postgresql">
+	  <fileset dir="${dbStartup.dir}/postgresql" includes="*.sql"/>
+	  <fileset dir="../sqlj/postgresql/"/>
+	</copy>
+	<copy todir="${build.dir}/Cyprus/utils/oracleXE">
+	  <fileset dir="${dbStartup.dir}/oracleXE" includes="*.sql"/>
+	</copy>
+
+
+	<!-- Data Directory			-->
+	<mkdir dir="${build.dir}/Cyprus/data"/>
+	<unjar src="${data.dir}/seed/Cyprus.jar" dest="${build.dir}/Cyprus/data"/>
+	<unjar src="${data.dir}/seed/Cyprus_pg.jar" dest="${build.dir}/Cyprus/data"/>
+	<mkdir dir="${build.dir}/Cyprus/data/import"/>
+	<copy todir="${build.dir}/Cyprus/data/import">
+	  <fileset dir="${data.dir}/import">
+	    <include name="**/Accounting*.*"/>
+	    <include name="Example*.csv"/>
+	  </fileset>
+	</copy> 
+    <copy todir="${build.dir}/Cyprus/data/">
+	  <fileset dir="${data.dir}/seed/">
+      	<include name="**/*.jar"/>
+      </fileset>
+	</copy>
+
+
+	<!-- JBoss Directory		-->
+	<mkdir dir="${build.dir}/Cyprus/jboss"/>
+	<mkdir dir="${build.dir}/Cyprus/jboss/bin"/>
+	<copy todir="${build.dir}/Cyprus/jboss/bin">
+	  <fileset dir="${jboss.dir}/bin" excludes="**/CVS/**"/>
+	</copy>
+	<mkdir dir="${build.dir}/Cyprus/jboss/lib"/>
+	<copy todir="${build.dir}/Cyprus/jboss/lib">
+	  <fileset dir="${jboss.dir}/lib" excludes="**/CVS/**"/>
+	</copy>
+	<mkdir dir="${build.dir}/Cyprus/jboss/server"/>
+	<copy todir="${build.dir}/Cyprus/jboss/server">
+	  <fileset dir="${jboss.dir}/server"
+		excludes="**/CVS/**"/>
+	</copy>
+  	
+  	<!-- GlassFish -->
+  	<mkdir dir="${build.dir}/Cyprus/glassfish"/>
+  	<copy todir="${build.dir}/Cyprus/glassfish">
+  		<fileset dir="../glassfishfacet/config"/>
+  	</copy>
+
+
+	<!-- Create Install ZIP		-->
+	<zip zipfile="${build.dir}/Cyprus_${env.CYPRUS_VERSION_FILE}.zip"
+	   basedir="${build.dir}"
+	   includes="Cyprus/**" />
+
+	<!-- Create Install TAR		-->
+  	<tar longfile="gnu" tarfile="${build.dir}/Cyprus_${env.CYPRUS_VERSION_FILE}.tar.gz"
+	   basedir="${build.dir}"
+  		includes="Cyprus/**"
+	  	compression="gzip" />
+
+
+	<!-- Create Checksums		-->
+	<checksum file="${build.dir}/Cyprus_${env.CYPRUS_VERSION_FILE}.tar.gz"/>
+	<concat destfile="${build.dir}/Cyprus_${env.CYPRUS_VERSION_FILE}.tar.gz.MD5" append="yes"> *Cyprus_${env.CYPRUS_VERSION_FILE}.tar.gz</concat>
+	<!-- Test with md5sum -c Cyprus_251.zip.MD5	-->
+	<checksum file="${build.dir}/Cyprus_${env.CYPRUS_VERSION_FILE}.zip"/>
+	<concat destfile="${build.dir}/Cyprus_${env.CYPRUS_VERSION_FILE}.zip.MD5" append="yes"> *Cyprus_${env.CYPRUS_VERSION_FILE}.zip</concat>
+
+  </target>
+
+
+  <target name="clean" description="deletes build">
+	<delete dir="${build.dir}"/>
+	<delete dir="${compile.dir}"/>
+  </target>
+
+</project>

@@ -1,0 +1,7 @@
+open @CYPRUS_FTP_SERVER@
+@CYPRUS_FTP_USER@
+@CYPRUS_FTP_PASSWORD@
+bin
+ls Cyprus.jar
+get Cyprus.jar
+quit

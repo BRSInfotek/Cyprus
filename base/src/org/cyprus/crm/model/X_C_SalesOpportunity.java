@@ -1,0 +1,768 @@
+/******************************************************************************
+ * Product: Adempiere ERP & CRM Smart Business Solution                       *
+ * Copyright (C) 1999-2007 ComPiere, Inc. All Rights Reserved.                *
+ * This program is free software, you can redistribute it and/or modify it    *
+ * under the terms version 2 of the GNU General Public License as published   *
+ * by the Free Software Foundation. This program is distributed in the hope   *
+ * that it will be useful, but WITHOUT ANY WARRANTY, without even the implied *
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.           *
+ * See the GNU General Public License for more details.                       *
+ * You should have received a copy of the GNU General Public License along    *
+ * with this program, if not, write to the Free Software Foundation, Inc.,    *
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
+ * For the text or an alternative of this public license, you may reach us    *
+ * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
+ * or via info@compiere.org or http://www.compiere.org/license.html           *
+ *****************************************************************************/
+/** Generated Model - DO NOT CHANGE */
+package org.cyprus.crm.model;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Properties;
+import org.cyprusbrs.model.*;
+import org.cyprusbrs.util.Env;
+import org.cyprusbrs.util.KeyNamePair;
+
+/** Generated Model for C_SalesOpportunity
+ *  @author Adempiere (generated) 
+ *  @version Release 1.1 Supported By Cyprus - $Id$ */
+public class X_C_SalesOpportunity extends PO implements I_C_SalesOpportunity, I_Persistent 
+{
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 20220202L;
+
+    /** Standard Constructor */
+    public X_C_SalesOpportunity (Properties ctx, int C_SalesOpportunity_ID, String trxName)
+    {
+      super (ctx, C_SalesOpportunity_ID, trxName);
+      /** if (C_SalesOpportunity_ID == 0)
+        {
+			setC_SalesOpportunity_ID (0);
+			setGenerateQuotation (null);
+// N
+        } */
+    }
+
+    /** Load Constructor */
+    public X_C_SalesOpportunity (Properties ctx, ResultSet rs, String trxName)
+    {
+      super (ctx, rs, trxName);
+    }
+
+    /** AccessLevel
+      * @return 1 - Org 
+      */
+    protected int get_AccessLevel()
+    {
+      return accessLevel.intValue();
+    }
+
+    /** Load Meta Data */
+    protected POInfo initPO (Properties ctx)
+    {
+      POInfo poi = POInfo.getPOInfo (ctx, Table_ID, get_TrxName());
+      return poi;
+    }
+
+    public String toString()
+    {
+      StringBuffer sb = new StringBuffer ("X_C_SalesOpportunity[")
+        .append(get_ID()).append("]");
+      return sb.toString();
+    }
+
+	public I_AD_User getAD_User() throws RuntimeException
+    {
+		return (I_AD_User)MTable.get(getCtx(), I_AD_User.Table_Name)
+			.getPO(getAD_User_ID(), get_TrxName());	}
+
+	/** Set User/Contact.
+		@param AD_User_ID 
+		User within the system - Internal or Business Partner Contact
+	  */
+	public void setAD_User_ID (int AD_User_ID)
+	{
+		if (AD_User_ID < 1) 
+			set_Value (COLUMNNAME_AD_User_ID, null);
+		else 
+			set_Value (COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
+	}
+
+	/** Get User/Contact.
+		@return User within the system - Internal or Business Partner Contact
+	  */
+	public int getAD_User_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_AD_User_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_BPartner getC_BPartner() throws RuntimeException
+    {
+		return (I_C_BPartner)MTable.get(getCtx(), I_C_BPartner.Table_Name)
+			.getPO(getC_BPartner_ID(), get_TrxName());	}
+
+	/** Set Business Partner .
+		@param C_BPartner_ID 
+		Identifies a Business Partner
+	  */
+	public void setC_BPartner_ID (int C_BPartner_ID)
+	{
+		if (C_BPartner_ID < 1) 
+			set_Value (COLUMNNAME_C_BPartner_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
+	}
+
+	/** Get Business Partner .
+		@return Identifies a Business Partner
+	  */
+	public int getC_BPartner_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_BPartner_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_BPartner_Location getC_BPartner_Location() throws RuntimeException
+    {
+		return (I_C_BPartner_Location)MTable.get(getCtx(), I_C_BPartner_Location.Table_Name)
+			.getPO(getC_BPartner_Location_ID(), get_TrxName());	}
+
+	/** Set Partner Location.
+		@param C_BPartner_Location_ID 
+		Identifies the (ship to) address for this Business Partner
+	  */
+	public void setC_BPartner_Location_ID (int C_BPartner_Location_ID)
+	{
+		if (C_BPartner_Location_ID < 1) 
+			set_Value (COLUMNNAME_C_BPartner_Location_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
+	}
+
+	/** Get Partner Location.
+		@return Identifies the (ship to) address for this Business Partner
+	  */
+	public int getC_BPartner_Location_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_BPartner_Location_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_ConversionType getC_ConversionType() throws RuntimeException
+    {
+		return (I_C_ConversionType)MTable.get(getCtx(), I_C_ConversionType.Table_Name)
+			.getPO(getC_ConversionType_ID(), get_TrxName());	}
+
+	/** Set Currency Type.
+		@param C_ConversionType_ID 
+		Currency Conversion Rate Type
+	  */
+	public void setC_ConversionType_ID (int C_ConversionType_ID)
+	{
+		if (C_ConversionType_ID < 1) 
+			set_Value (COLUMNNAME_C_ConversionType_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_ConversionType_ID, Integer.valueOf(C_ConversionType_ID));
+	}
+
+	/** Get Currency Type.
+		@return Currency Conversion Rate Type
+	  */
+	public int getC_ConversionType_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_ConversionType_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_Currency getC_Currency() throws RuntimeException
+    {
+		return (I_C_Currency)MTable.get(getCtx(), I_C_Currency.Table_Name)
+			.getPO(getC_Currency_ID(), get_TrxName());	}
+
+	/** Set Currency.
+		@param C_Currency_ID 
+		The Currency for this record
+	  */
+	public void setC_Currency_ID (int C_Currency_ID)
+	{
+		if (C_Currency_ID < 1) 
+			set_Value (COLUMNNAME_C_Currency_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
+	}
+
+	/** Get Currency.
+		@return The Currency for this record
+	  */
+	public int getC_Currency_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_Currency_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_Lead getC_Lead() throws RuntimeException
+    {
+		return (I_C_Lead)MTable.get(getCtx(), I_C_Lead.Table_Name)
+			.getPO(getC_Lead_ID(), get_TrxName());	}
+
+	/** Set Lead.
+		@param C_Lead_ID Lead	  */
+	public void setC_Lead_ID (int C_Lead_ID)
+	{
+		if (C_Lead_ID < 1) 
+			set_Value (COLUMNNAME_C_Lead_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_Lead_ID, Integer.valueOf(C_Lead_ID));
+	}
+
+	/** Get Lead.
+		@return Lead	  */
+	public int getC_Lead_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_Lead_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_Order getC_Order() throws RuntimeException
+    {
+		return (I_C_Order)MTable.get(getCtx(), I_C_Order.Table_Name)
+			.getPO(getC_Order_ID(), get_TrxName());	}
+
+	/** Set Sales Quotation .
+		@param C_Order_ID 
+		Order
+	  */
+	public void setC_Order_ID (int C_Order_ID)
+	{
+		if (C_Order_ID < 1) 
+			set_Value (COLUMNNAME_C_Order_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+	}
+
+	/** Get Sales Quotation .
+		@return Order
+	  */
+	public int getC_Order_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_Order_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_PaymentTerm getC_PaymentTerm() throws RuntimeException
+    {
+		return (I_C_PaymentTerm)MTable.get(getCtx(), I_C_PaymentTerm.Table_Name)
+			.getPO(getC_PaymentTerm_ID(), get_TrxName());	}
+
+	/** Set Payment Term.
+		@param C_PaymentTerm_ID 
+		The terms of Payment (timing, discount)
+	  */
+	public void setC_PaymentTerm_ID (int C_PaymentTerm_ID)
+	{
+		if (C_PaymentTerm_ID < 1) 
+			set_Value (COLUMNNAME_C_PaymentTerm_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
+	}
+
+	/** Get Payment Term.
+		@return The terms of Payment (timing, discount)
+	  */
+	public int getC_PaymentTerm_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_PaymentTerm_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Sales Opportunity.
+		@param C_SalesOpportunity_ID Sales Opportunity	  */
+	public void setC_SalesOpportunity_ID (int C_SalesOpportunity_ID)
+	{
+		if (C_SalesOpportunity_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_C_SalesOpportunity_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_C_SalesOpportunity_ID, Integer.valueOf(C_SalesOpportunity_ID));
+	}
+
+	/** Get Sales Opportunity.
+		@return Sales Opportunity	  */
+	public int getC_SalesOpportunity_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_SalesOpportunity_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Close Sales Opportunity.
+		@param CloseOpportunity Close Sales Opportunity	  */
+	public void setCloseOpportunity (String CloseOpportunity)
+	{
+		set_Value (COLUMNNAME_CloseOpportunity, CloseOpportunity);
+	}
+
+	/** Get Close Sales Opportunity.
+		@return Close Sales Opportunity	  */
+	public String getCloseOpportunity () 
+	{
+		return (String)get_Value(COLUMNNAME_CloseOpportunity);
+	}
+
+	/** Set Conversion Date.
+		@param ConversionDate 
+		Date for selecting conversion rate
+	  */
+	public void setConversionDate (Timestamp ConversionDate)
+	{
+		set_Value (COLUMNNAME_ConversionDate, ConversionDate);
+	}
+
+	/** Get Conversion Date.
+		@return Date for selecting conversion rate
+	  */
+	public Timestamp getConversionDate () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_ConversionDate);
+	}
+
+	/** Set Description.
+		@param Description 
+		Optional short description of the record
+	  */
+	public void setDescription (String Description)
+	{
+		set_Value (COLUMNNAME_Description, Description);
+	}
+
+	/** Get Description.
+		@return Optional short description of the record
+	  */
+	public String getDescription () 
+	{
+		return (String)get_Value(COLUMNNAME_Description);
+	}
+
+	/** Set Document No.
+		@param DocumentNo 
+		Document sequence number of the document
+	  */
+	public void setDocumentNo (String DocumentNo)
+	{
+		set_Value (COLUMNNAME_DocumentNo, DocumentNo);
+	}
+
+	/** Get Document No.
+		@return Document sequence number of the document
+	  */
+	public String getDocumentNo () 
+	{
+		return (String)get_Value(COLUMNNAME_DocumentNo);
+	}
+
+    /** Get Record ID/ColumnName
+        @return ID/ColumnName pair
+      */
+    public KeyNamePair getKeyNamePair() 
+    {
+        return new KeyNamePair(get_ID(), getDocumentNo());
+    }
+
+	/** Set Enquiry Date.
+		@param EnquiryDate Enquiry Date	  */
+	public void setEnquiryDate (Timestamp EnquiryDate)
+	{
+		set_Value (COLUMNNAME_EnquiryDate, EnquiryDate);
+	}
+
+	/** Get Enquiry Date.
+		@return Enquiry Date	  */
+	public Timestamp getEnquiryDate () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_EnquiryDate);
+	}
+
+	/** Set Generate Quotation.
+		@param GenerateQuotation 
+		It generates Quotation from Sales Opportunity
+	  */
+	public void setGenerateQuotation (String GenerateQuotation)
+	{
+		set_Value (COLUMNNAME_GenerateQuotation, GenerateQuotation);
+	}
+
+	/** Get Generate Quotation.
+		@return It generates Quotation from Sales Opportunity
+	  */
+	public String getGenerateQuotation () 
+	{
+		return (String)get_Value(COLUMNNAME_GenerateQuotation);
+	}
+
+	/** Set Grand Total.
+		@param GrandTotal 
+		Total amount of document
+	  */
+	public void setGrandTotal (BigDecimal GrandTotal)
+	{
+		set_Value (COLUMNNAME_GrandTotal, GrandTotal);
+	}
+
+	/** Get Grand Total.
+		@return Total amount of document
+	  */
+	public BigDecimal getGrandTotal () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_GrandTotal);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Comment/Help.
+		@param Help 
+		Comment or Hint
+	  */
+	public void setHelp (String Help)
+	{
+		set_Value (COLUMNNAME_Help, Help);
+	}
+
+	/** Get Comment/Help.
+		@return Comment or Hint
+	  */
+	public String getHelp () 
+	{
+		return (String)get_Value(COLUMNNAME_Help);
+	}
+
+	public I_M_PriceList getM_PriceList() throws RuntimeException
+    {
+		return (I_M_PriceList)MTable.get(getCtx(), I_M_PriceList.Table_Name)
+			.getPO(getM_PriceList_ID(), get_TrxName());	}
+
+	/** Set Price List.
+		@param M_PriceList_ID 
+		Unique identifier of a Price List
+	  */
+	public void setM_PriceList_ID (int M_PriceList_ID)
+	{
+		if (M_PriceList_ID < 1) 
+			set_Value (COLUMNNAME_M_PriceList_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_PriceList_ID, Integer.valueOf(M_PriceList_ID));
+	}
+
+	/** Get Price List.
+		@return Unique identifier of a Price List
+	  */
+	public int getM_PriceList_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_PriceList_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_M_Warehouse getM_Warehouse() throws RuntimeException
+    {
+		return (I_M_Warehouse)MTable.get(getCtx(), I_M_Warehouse.Table_Name)
+			.getPO(getM_Warehouse_ID(), get_TrxName());	}
+
+	/** Set Warehouse.
+		@param M_Warehouse_ID 
+		Storage Warehouse and Service Point
+	  */
+	public void setM_Warehouse_ID (int M_Warehouse_ID)
+	{
+		if (M_Warehouse_ID < 1) 
+			set_Value (COLUMNNAME_M_Warehouse_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
+	}
+
+	/** Get Warehouse.
+		@return Storage Warehouse and Service Point
+	  */
+	public int getM_Warehouse_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_Warehouse_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Opportunity Date.
+		@param OpportunityDate Opportunity Date	  */
+	public void setOpportunityDate (Timestamp OpportunityDate)
+	{
+		set_Value (COLUMNNAME_OpportunityDate, OpportunityDate);
+	}
+
+	/** Get Opportunity Date.
+		@return Opportunity Date	  */
+	public Timestamp getOpportunityDate () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_OpportunityDate);
+	}
+
+	/** PaymentRule AD_Reference_ID=195 */
+	public static final int PAYMENTRULE_AD_Reference_ID=195;
+	/** Cash = B */
+	public static final String PAYMENTRULE_Cash = "B";
+	/** Credit Card = K */
+	public static final String PAYMENTRULE_CreditCard = "K";
+	/** Direct Deposit = T */
+	public static final String PAYMENTRULE_DirectDeposit = "T";
+	/** Check = S */
+	public static final String PAYMENTRULE_Check = "S";
+	/** On Credit = P */
+	public static final String PAYMENTRULE_OnCredit = "P";
+	/** Direct Debit = D */
+	public static final String PAYMENTRULE_DirectDebit = "D";
+	/** Mixed = M */
+	public static final String PAYMENTRULE_Mixed = "M";
+	/** Set Payment Rule.
+		@param PaymentRule 
+		How you pay the invoice
+	  */
+	public void setPaymentRule (String PaymentRule)
+	{
+
+		set_Value (COLUMNNAME_PaymentRule, PaymentRule);
+	}
+
+	/** Get Payment Rule.
+		@return How you pay the invoice
+	  */
+	public String getPaymentRule () 
+	{
+		return (String)get_Value(COLUMNNAME_PaymentRule);
+	}
+
+	/** Set Probability %.
+		@param Probability Probability %	  */
+	public void setProbability (int Probability)
+	{
+		set_Value (COLUMNNAME_Probability, Integer.valueOf(Probability));
+	}
+
+	/** Get Probability %.
+		@return Probability %	  */
+	public int getProbability () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Probability);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Processed.
+		@param Processed 
+		The document has been processed
+	  */
+	public void setProcessed (boolean Processed)
+	{
+		set_Value (COLUMNNAME_Processed, Boolean.valueOf(Processed));
+	}
+
+	/** Get Processed.
+		@return The document has been processed
+	  */
+	public boolean isProcessed () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processed);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Proposal Date.
+		@param ProposalDate Proposal Date	  */
+	public void setProposalDate (Timestamp ProposalDate)
+	{
+		set_Value (COLUMNNAME_ProposalDate, ProposalDate);
+	}
+
+	/** Get Proposal Date.
+		@return Proposal Date	  */
+	public Timestamp getProposalDate () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_ProposalDate);
+	}
+
+	public I_C_BPartner getRef_BPartner() throws RuntimeException
+    {
+		return (I_C_BPartner)MTable.get(getCtx(), I_C_BPartner.Table_Name)
+			.getPO(getRef_BPartner_ID(), get_TrxName());	}
+
+	/** Set Prospect.
+		@param Ref_BPartner_ID Prospect	  */
+	public void setRef_BPartner_ID (int Ref_BPartner_ID)
+	{
+		if (Ref_BPartner_ID < 1) 
+			set_Value (COLUMNNAME_Ref_BPartner_ID, null);
+		else 
+			set_Value (COLUMNNAME_Ref_BPartner_ID, Integer.valueOf(Ref_BPartner_ID));
+	}
+
+	/** Get Prospect.
+		@return Prospect	  */
+	public int getRef_BPartner_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Ref_BPartner_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_BPartner_Location getRef_BPartner_Location() throws RuntimeException
+    {
+		return (I_C_BPartner_Location)MTable.get(getCtx(), I_C_BPartner_Location.Table_Name)
+			.getPO(getRef_BPartner_Location_ID(), get_TrxName());	}
+
+	/** Set Propect Location.
+		@param Ref_BPartner_Location_ID 
+		Identifies the (ship to) address for this Business Partner
+	  */
+	public void setRef_BPartner_Location_ID (int Ref_BPartner_Location_ID)
+	{
+		if (Ref_BPartner_Location_ID < 1) 
+			set_Value (COLUMNNAME_Ref_BPartner_Location_ID, null);
+		else 
+			set_Value (COLUMNNAME_Ref_BPartner_Location_ID, Integer.valueOf(Ref_BPartner_Location_ID));
+	}
+
+	/** Get Propect Location.
+		@return Identifies the (ship to) address for this Business Partner
+	  */
+	public int getRef_BPartner_Location_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Ref_BPartner_Location_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_AD_User getRef_User() throws RuntimeException
+    {
+		return (I_AD_User)MTable.get(getCtx(), I_AD_User.Table_Name)
+			.getPO(getRef_User_ID(), get_TrxName());	}
+
+	/** Set Prospect User/Contact.
+		@param Ref_User_ID 
+		User within the system - Internal or Business Partner Contact
+	  */
+	public void setRef_User_ID (int Ref_User_ID)
+	{
+		if (Ref_User_ID < 1) 
+			set_Value (COLUMNNAME_Ref_User_ID, null);
+		else 
+			set_Value (COLUMNNAME_Ref_User_ID, Integer.valueOf(Ref_User_ID));
+	}
+
+	/** Get Prospect User/Contact.
+		@return User within the system - Internal or Business Partner Contact
+	  */
+	public int getRef_User_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Ref_User_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Status AD_Reference_ID=1000019 */
+	public static final int STATUS_AD_Reference_ID=1000019;
+	/** New = 10 */
+	public static final String STATUS_New = "10";
+	/** Intro Mail Sent = 11 */
+	public static final String STATUS_IntroMailSent = "11";
+	/** First Contact = 12 */
+	public static final String STATUS_FirstContact = "12";
+	/** Follow up Contact = 13 */
+	public static final String STATUS_FollowUpContact = "13";
+	/** Product Shown = 14 */
+	public static final String STATUS_ProductShown = "14";
+	/** Price Quoted = 15 */
+	public static final String STATUS_PriceQuoted = "15";
+	/** Negotiation = 16 */
+	public static final String STATUS_Negotiation = "16";
+	/** No Interest = 17 */
+	public static final String STATUS_NoInterest = "17";
+	/** Follow Up Later = 18 */
+	public static final String STATUS_FollowUpLater = "18";
+	/** Converted to Opportunity = 19 */
+	public static final String STATUS_ConvertedToOpportunity = "19";
+	/** Given Up = 20 */
+	public static final String STATUS_GivenUp = "20";
+	/** Invalid Data = 21 */
+	public static final String STATUS_InvalidData = "21";
+	/** Closed = 22 */
+	public static final String STATUS_Closed = "22";
+	/** Converted to Quotation = 23 */
+	public static final String STATUS_ConvertedToQuotation = "23";
+	/** Set Status.
+		@param Status 
+		Status of the currently running check
+	  */
+	public void setStatus (String Status)
+	{
+
+		set_Value (COLUMNNAME_Status, Status);
+	}
+
+	/** Get Status.
+		@return Status of the currently running check
+	  */
+	public String getStatus () 
+	{
+		return (String)get_Value(COLUMNNAME_Status);
+	}
+
+	/** Set Total Lines.
+		@param TotalLines 
+		Total of all document lines
+	  */
+	public void setTotalLines (BigDecimal TotalLines)
+	{
+		set_Value (COLUMNNAME_TotalLines, TotalLines);
+	}
+
+	/** Get Total Lines.
+		@return Total of all document lines
+	  */
+	public BigDecimal getTotalLines () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_TotalLines);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+}

@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CustomerAgingDetail_New" pageWidth="1041" pageHeight="842" orientation="Landscape" columnWidth="1001" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="374f4b24-b4bb-45d4-bc01-2d1a1af020f7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Cyprus"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="AD_Client_ID" class="java.math.BigDecimal"/>
+	<parameter name="C_AcctSchema_ID" class="java.math.BigDecimal"/>
+	<parameter name="AD_Org_ID" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[new java.math.BigDecimal(9999999)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="C_Activity_ID" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[new java.math.BigDecimal(9999999)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="C_BPartner_ID" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[new java.math.BigDecimal(9999999)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="C_BP_Group_ID" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[new java.math.BigDecimal(9999999)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DateAcct_Start" class="java.util.Date"/>
+	<parameter name="C_AgingBucket_ID" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[SELECT  ad_org_id           ,
+  ad_client_id        ,
+  c_bpartner_id       ,
+  c_bp_GROUP_id       ,
+  DATEINVOICED,
+  C_AgingBucket_ID  ,
+BUCKET_NAME,
+ VENDOR,
+  BPGROUP_NAME      ,
+  org_name            ,
+  org_addr            ,
+  org_phone           ,
+  DUEAMT               ,
+  CURRENT_DUEAMT       ,
+  PREVIOUS_DUE_AMT     ,
+  OPENAMT              ,
+  PAIDAMT              ,
+  nvl((openamt-paidamt),0) as amount,
+  BUCKET_DETAILS       ,
+  tenant_name         ,
+  tenant_desc         ,
+  DATEacct_start      ,
+  DATEacct_end        ,
+  ISO_CODE,
+  C_CURRENCY_ID,
+  LOGO_TEXT,
+ AD_PInstance_ID,C_INVOICE_ID,DOCUMENTNO,C_ACCTSCHEMA_ID , ACCT_NAME ,C_COUNTRY_ID,COUNTRY
+ FROM TEMP_CUST_AGING_DETAIL
+ where 
+AD_CLIENT_ID =  $P{AD_Client_ID}  AND
+C_AcctSchema_ID = $P{C_AcctSchema_ID}  AND
+(AD_Org_ID = $P{AD_Org_ID} OR $P{AD_Org_ID} = 9999999) AND
+(C_Activity_ID = $P{C_Activity_ID} OR $P{C_Activity_ID} = 9999999) AND
+(C_BPartner_ID = $P{C_BPartner_ID} OR $P{C_BPartner_ID} = 9999999) AND
+ (C_BP_Group_ID = $P{C_BP_Group_ID} OR $P{C_BP_Group_ID} = 9999999) AND
+DATEINVOICED <=  $P{DateAcct_Start} AND
+ C_AgingBucket_ID = $P{C_AgingBucket_ID}]]>
+	</queryString>
+	<field name="AD_ORG_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="AD_ORG_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="AD_ORG_ID"/>
+	</field>
+	<field name="AD_CLIENT_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="AD_CLIENT_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="AD_CLIENT_ID"/>
+	</field>
+	<field name="C_BPARTNER_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="C_BPARTNER_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_BPARTNER_ID"/>
+	</field>
+	<field name="C_BP_GROUP_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="C_BP_GROUP_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_BP_GROUP_ID"/>
+	</field>
+	<field name="DATEINVOICED" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATEINVOICED"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATEINVOICED"/>
+	</field>
+	<field name="C_AGINGBUCKET_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="C_AGINGBUCKET_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_AGINGBUCKET_ID"/>
+	</field>
+	<field name="BUCKET_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BUCKET_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="BUCKET_NAME"/>
+	</field>
+	<field name="VENDOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="VENDOR"/>
+		<property name="com.jaspersoft.studio.field.label" value="VENDOR"/>
+	</field>
+	<field name="BPGROUP_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BPGROUP_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="BPGROUP_NAME"/>
+	</field>
+	<field name="ORG_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ORG_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORG_NAME"/>
+	</field>
+	<field name="ORG_ADDR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ORG_ADDR"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORG_ADDR"/>
+	</field>
+	<field name="ORG_PHONE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ORG_PHONE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORG_PHONE"/>
+	</field>
+	<field name="DUEAMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="DUEAMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="DUEAMT"/>
+	</field>
+	<field name="CURRENT_DUEAMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="CURRENT_DUEAMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="CURRENT_DUEAMT"/>
+	</field>
+	<field name="PREVIOUS_DUE_AMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="PREVIOUS_DUE_AMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="PREVIOUS_DUE_AMT"/>
+	</field>
+	<field name="OPENAMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="OPENAMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="OPENAMT"/>
+	</field>
+	<field name="PAIDAMT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="PAIDAMT"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAIDAMT"/>
+	</field>
+	<field name="AMOUNT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="AMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="AMOUNT"/>
+	</field>
+	<field name="BUCKET_DETAILS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BUCKET_DETAILS"/>
+		<property name="com.jaspersoft.studio.field.label" value="BUCKET_DETAILS"/>
+	</field>
+	<field name="TENANT_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TENANT_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="TENANT_NAME"/>
+	</field>
+	<field name="TENANT_DESC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TENANT_DESC"/>
+		<property name="com.jaspersoft.studio.field.label" value="TENANT_DESC"/>
+	</field>
+	<field name="DATEACCT_START" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATEACCT_START"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATEACCT_START"/>
+	</field>
+	<field name="DATEACCT_END" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DATEACCT_END"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATEACCT_END"/>
+	</field>
+	<field name="ISO_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ISO_CODE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ISO_CODE"/>
+	</field>
+	<field name="C_CURRENCY_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="C_CURRENCY_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_CURRENCY_ID"/>
+	</field>
+	<field name="LOGO_TEXT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LOGO_TEXT"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOGO_TEXT"/>
+	</field>
+	<field name="AD_PINSTANCE_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="AD_PINSTANCE_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="AD_PINSTANCE_ID"/>
+	</field>
+	<field name="C_INVOICE_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="C_INVOICE_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_INVOICE_ID"/>
+	</field>
+	<field name="DOCUMENTNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DOCUMENTNO"/>
+		<property name="com.jaspersoft.studio.field.label" value="DOCUMENTNO"/>
+	</field>
+	<field name="C_ACCTSCHEMA_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="C_ACCTSCHEMA_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_ACCTSCHEMA_ID"/>
+	</field>
+	<field name="ACCT_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ACCT_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACCT_NAME"/>
+	</field>
+	<field name="C_COUNTRY_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="C_COUNTRY_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_COUNTRY_ID"/>
+	</field>
+	<field name="COUNTRY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="COUNTRY"/>
+		<property name="com.jaspersoft.studio.field.label" value="COUNTRY"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="880" y="0" width="60" height="15" forecolor="#000000" uuid="93264c39-8f04-430f-a90b-5f5afc3ab0d9">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Print Date :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/YYYY">
+				<reportElement x="940" y="0" width="60" height="15" uuid="930920fb-90cc-485b-be93-90d483a955d8">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="hh:mm a">
+				<reportElement x="940" y="15" width="60" height="15" uuid="5bf80b2c-7e2b-4461-a3bc-c00b949e3bf5">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="880" y="15" width="60" height="15" forecolor="#000000" uuid="e5ef44ac-ae5e-4e19-9f2d-661b4c9f7b82">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Print Time :   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="60" width="1000" height="20" backcolor="#EBF3FC" uuid="65357889-6860-4d61-aaf8-b0469e90790d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer Aging Detail Report]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="20" width="100" height="35" uuid="c246776b-3aac-4955-a921-5efee8258823">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$F{LOGO_TEXT}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="20" uuid="1865b8cc-a31e-4b24-935a-399197caa474">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Organization :]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="70" y="0" width="430" height="20" uuid="ed454241-3f06-4501-ada5-18e40477036e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{AD_Org_ID}.intValue()==9999999?"ALL":$F{ORG_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="65" height="20" uuid="47defb00-369c-4fbe-8e72-b649fcdd0319">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date As On :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement mode="Opaque" x="65" y="20" width="435" height="20" uuid="8753fd1e-36d7-47b1-be56-21a20b1e22cc">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DateAcct_Start}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="80" height="20" uuid="6cf0bdca-13fe-4d74-ab72-a7592c377d80">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ageing Bucket :]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="80" y="40" width="420" height="20" uuid="18f45704-1d76-4fa1-9b70-5f1a60e9dea5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BUCKET_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="500" y="40" width="70" height="20" uuid="5c6d4680-c0e9-41d3-838d-a281dac6639b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[A/C Schema :]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="570" y="40" width="430" height="20" uuid="376fa795-398c-4d11-9249-c952a52d159f"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ACCT_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="560" y="0" width="440" height="20" uuid="3c949686-e755-4744-b3b7-f4539c59d65f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{C_BPartner_ID}.intValue()==9999999?"ALL":$F{VENDOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="555" y="20" width="445" height="20" uuid="bfe49c1f-ddb8-42c3-88ef-4e39108e5a20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{C_BP_Group_ID}.intValue()==9999999?"ALL":$F{BPGROUP_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="500" y="20" width="55" height="20" uuid="8fed7a46-caae-428c-bb0c-ce48ecdc6741">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BP Group :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="0" width="60" height="20" uuid="ca69cc23-7189-45b3-91d5-93a96e10f9f4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[B. Partner :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField evaluationTime="Report">
+				<reportElement x="500" y="0" width="100" height="20" uuid="4e9b3814-4918-4a66-9bf9-9567867529f1">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="100" height="20" uuid="da1ce4ef-5c10-4231-aa3f-347ada890f01">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="75" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<crosstab>
+				<reportElement x="0" y="0" width="1000" height="75" uuid="7f39342e-7df7-4f2a-8803-02c46aac3a5d">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.crosstab.style.header" value="Crosstab_CH"/>
+					<property name="com.jaspersoft.studio.crosstab.style.group" value="Crosstab_CG"/>
+					<property name="com.jaspersoft.studio.crosstab.style.total" value="Crosstab_CT"/>
+					<property name="com.jaspersoft.studio.crosstab.style.detail" value="Crosstab_CD"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<crosstabDataset>
+					<dataset resetType="Report"/>
+				</crosstabDataset>
+				<crosstabHeaderCell>
+					<cellContents>
+						<staticText>
+							<reportElement mode="Opaque" x="0" y="0" width="200" height="30" backcolor="#EBF3FC" uuid="ed20ee82-025b-4c8a-935e-86551ac6169e">
+								<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+							</reportElement>
+							<box leftPadding="2">
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textElement verticalAlignment="Middle">
+								<font isBold="true"/>
+							</textElement>
+							<text><![CDATA[Customer                     Invoice / Receipt]]></text>
+						</staticText>
+					</cellContents>
+				</crosstabHeaderCell>
+				<rowGroup name="VENDOR" width="100" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{VENDOR}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="4efce909-4675-43c6-8918-4f004813e227"/>
+								<box leftPadding="2">
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{VENDOR}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CT">
+							<staticText>
+								<reportElement x="0" y="0" width="200" height="20" uuid="5f016137-7403-4797-8e8f-fcb2e113e680"/>
+								<box rightPadding="2">
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total ]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="DOCUMENTNO" width="100">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{DOCUMENTNO}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="100" height="20" uuid="8b690a19-d2f3-411d-a3f6-a2ca6dac31d3"/>
+								<box leftPadding="2">
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{DOCUMENTNO}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="-2147483648" height="-2147483648" uuid="89c95bbb-4ad0-4d79-9352-835a47815774"/>
+								<text><![CDATA[Total DOCUMENTNO]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="BUCKET_DETAILS" height="30">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{BUCKET_DETAILS}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="100" height="30" backcolor="#EBF3FC" uuid="0a156807-4ea0-4aa9-8820-55b041ba7de1"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{BUCKET_DETAILS}.equals("BTotal O/S Amt")?"Total O/S Amt":$V{BUCKET_DETAILS}.equals("CCurrent Due")?"Current Due":$V{BUCKET_DETAILS}.equals("SUnAlloc. Rec. Amt")?"UnAllocated Amt":$V{BUCKET_DETAILS}.equals("D0-30 Days Due")?"0-30 Days Due":$V{BUCKET_DETAILS}.equals("D31-60 Days Due")?"31-60 Days Due":$V{BUCKET_DETAILS}.equals("D31-60 Days Due")?"D31-60 Days Due":$V{BUCKET_DETAILS}.equals("D61-90 Days Due")?"61-90 Days Due":$V{BUCKET_DETAILS}.equals("D91-120 Days Due")?"91-120 Days Due":$V{BUCKET_DETAILS}.equals("RGreater Than 120 Days Due")?"Greater Than 120 Days Due":$V{BUCKET_DETAILS}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="-2147483648" height="-2147483648" uuid="368ebc1b-8388-4ace-a611-6b7904ba6ef0"/>
+								<text><![CDATA[Total BUCKET_DETAILS]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="AMOUNT_MEASURE" class="java.math.BigDecimal" calculation="Sum">
+					<measureExpression><![CDATA[$F{AMOUNT}]]></measureExpression>
+				</measure>
+				<crosstabCell width="100" height="20">
+					<cellContents mode="Opaque" style="Crosstab_CD">
+						<textField pattern="#,##0.00#;(#,##0.00#)">
+							<reportElement x="0" y="0" width="100" height="20" uuid="add3cc95-2607-4be8-836c-c398e197b109"/>
+							<box rightPadding="2">
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font size="8"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{AMOUNT_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="BUCKET_DETAILS">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="d71f8a1c-2a70-4289-949a-104a20c69b55"/>
+							<textFieldExpression><![CDATA[$V{AMOUNT_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="100" height="20" rowTotalGroup="VENDOR">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField pattern="#,##0.00#;(#,##0.00#)">
+							<reportElement x="0" y="0" width="100" height="20" uuid="0aa885d9-85b1-488f-aa93-8078b9e06d35"/>
+							<box rightPadding="2">
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font isBold="true"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{AMOUNT_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="VENDOR" columnTotalGroup="BUCKET_DETAILS">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="62534791-f7da-4c85-b758-d1fcbaa292b9"/>
+							<textFieldExpression><![CDATA[$V{AMOUNT_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="DOCUMENTNO">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="5b954b9f-85d2-40a8-90ec-1c540ce78870"/>
+							<textFieldExpression><![CDATA[$V{AMOUNT_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="DOCUMENTNO" columnTotalGroup="BUCKET_DETAILS">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="13633343-24be-43eb-a097-adb0f5d10a4d"/>
+							<textFieldExpression><![CDATA[$V{AMOUNT_MEASURE}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+			<line>
+				<reportElement x="100" y="0" width="1" height="30" uuid="2c9d3b80-b59a-4d52-a96c-38e0af4d330a">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
