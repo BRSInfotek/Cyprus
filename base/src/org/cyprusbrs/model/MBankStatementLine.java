@@ -181,13 +181,14 @@ import org.joda.time.DateTimeComparator;
 		Date dateAcct=new Date(getDateAcct().getTime());
 		Date dateCurr=new Date(curren.getTime());
 		int checkDate= DateTimeComparator.getDateOnlyInstance().compare(dateAcct,dateCurr);
-		if(checkDate<0)
-		{
-			log.info("Account Date :::  "+dateAcct+"  "+dateCurr+"  ::  "+dateAcct.compareTo(dateCurr)+"  check "+checkDate);
-			log.saveError(Msg.getMsg(getCtx(), "Cyprus_BankStatmentLine_BeforeCurrentDate"), "");
-			return false;
-		}
-		/// End of code by Mukesh @20210113
+		//Code commented by Anshul @20220418 as per discussion with Surya
+//		if(checkDate<0)
+//		{
+//			log.info("Account Date :::  "+dateAcct+"  "+dateCurr+"  ::  "+dateAcct.compareTo(dateCurr)+"  check "+checkDate);
+//			log.saveError(Msg.getMsg(getCtx(), "Cyprus_BankStatmentLine_BeforeCurrentDate"), "");
+//			return false;
+//		}
+//		/// End of code by Mukesh @20210113
 		
 		// Un-link Payment if TrxAmt is zero - teo_sarca BF [ 1896880 ] 
 		if (getTrxAmt().signum() == 0 && getC_Payment_ID() > 0)
