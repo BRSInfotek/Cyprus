@@ -289,7 +289,7 @@ public class Doc_Payment extends Doc
 				}
 				else // Child Tax
 				{
-					DocTax[] m_sum_taxes=UtilTax.loadSummaryTaxes(get_ID(),UtilTax.BANKSTATEMENT);
+					DocTax[] m_sum_taxes=UtilTax.loadSummaryTaxes(get_ID(),UtilTax.PAYMENT);
 					log.fine("Lines=" + p_lines.length + ", Taxes=" + m_sum_taxes.length);
 					System.out.println("Lines=" + p_lines.length + ", Taxes=" + m_sum_taxes.length);
 					for(DocTax childTax:m_sum_taxes)
