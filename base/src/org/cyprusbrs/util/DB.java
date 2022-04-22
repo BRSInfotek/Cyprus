@@ -130,9 +130,20 @@ public final class DB
 				MRole role = new MRole (ctx, rs, null);
 				role.updateAccessRecords();
 			}
+			close(rs);
+            close(pstmt);
 		}
 		catch (Exception e)
 		{
+			  if (pstmt != null)
+              {
+				  close(pstmt);
+              }
+			  if (rs != null)
+              {
+				  close(rs);
+              }
+			  
 			log.log(Level.SEVERE, "(1)", e);
 		}
         finally
@@ -555,10 +566,22 @@ public final class DB
             pstmt = prepareStatement(sql, null);
             rs = pstmt.executeQuery();
             if (rs.next())
+            {
                 version = rs.getString(1);
+            }
+            close(rs);
+            close(pstmt);
         }
         catch (SQLException e)
         {
+        	if(pstmt != null)
+        	{
+        	     close(pstmt);
+        	}
+        	if(rs != null)
+        	{
+        	     close(rs);
+        	}
             log.log(Level.SEVERE, "Problem with AD_System Table - Run system.sql script - " + e.toString());
             return false;
         }
@@ -616,9 +639,19 @@ public final class DB
                 buildDatabase = rs.getString(1);
                 failOnBuild = rs.getString(2).equals("Y");
             }
+            close(rs);
+            close(pstmt);
         }
         catch (SQLException e)
         {
+        	if(pstmt != null)
+        	{
+        		close(pstmt);
+        	}
+        	if(rs != null)
+        	{
+        		close(rs);
+        	}
             log.log(Level.SEVERE, "Problem with AD_System Table - Run system.sql script - " + e.toString());
             return false;
         }
@@ -1024,9 +1057,20 @@ public final class DB
 			//	if (conn != null && !conn.getAutoCommit())	//	is null for remote
 			//		conn.commit();
 			}
+			cs.close();
 		}
 		catch (Exception e)
 		{
+			if(cs != null)
+			{
+				try {
+					cs.close();
+				} 
+				catch (SQLException e1) {
+					
+					e1.printStackTrace();
+				}
+			}
 			e = getSQLException(e);
 			if (ignoreError)
 				log.log(Level.SEVERE, cs.getSql() + " [" + trxName + "] - " +  e.getMessage());
@@ -1095,9 +1139,14 @@ public final class DB
 			{
 				cs.commit();	//	Local commit
 			}
+			DB.close(cs);
 		}
 		catch (Exception e)
 		{
+			if(cs != null)
+			{
+				DB.close(cs);
+			}
 			throw new DBException(e);
 		}
 		finally
@@ -1259,13 +1308,24 @@ public final class DB
     		pstmt = prepareStatement(sql, trxName);
     		setParameters(pstmt, params);
     		rs = pstmt.executeQuery();
-    		if (rs.next())
+    		if (rs.next()) {
     			retValue = rs.getInt(1);
-    		else
+    		}
+    		else {
     			log.info("No Value " + sql);
+    		}
+    		close(rs, pstmt);
     	}
     	catch (SQLException e)
     	{
+    		if(pstmt != null) 
+    		{
+    			close(pstmt);
+    		}
+    		if(rs != null) 
+    		{
+    			close(rs);
+    		}
     		throw new DBException(e, sql);
     	}
     	finally
@@ -1340,13 +1400,24 @@ public final class DB
     		pstmt = prepareStatement(sql, trxName);
     		setParameters(pstmt, params);
     		rs = pstmt.executeQuery();
-    		if (rs.next())
+    		if (rs.next()) {
     			retValue = rs.getString(1);
-    		else
+    		}
+    		else {
     			log.info("No Value " + sql);
+    		}
+    		close(rs, pstmt);
     	}
     	catch (SQLException e)
     	{
+    		if(pstmt != null)
+    		{
+    			close(pstmt);
+    		}
+    		if(rs != null)
+    		{
+    			close(rs);
+    		}
     		throw new DBException(e, sql);
     	}
     	finally
@@ -1421,13 +1492,24 @@ public final class DB
     		pstmt = prepareStatement(sql, trxName);
     		setParameters(pstmt, params);
     		rs = pstmt.executeQuery();
-    		if (rs.next())
+    		if (rs.next()) {
     			retValue = rs.getBigDecimal(1);
-    		else
+    		}
+    		else {
     			log.info("No Value " + sql);
+    		}
+    		close(rs, pstmt);
     	}
     	catch (SQLException e)
     	{
+    		if(pstmt != null)
+    		{
+    			close(pstmt);
+    		}
+    		if(rs != null)
+    		{
+    			close(rs);
+    		}
     		//log.log(Level.SEVERE, sql, getSQLException(e));
     		throw new DBException(e, sql);
     	}
@@ -1504,13 +1586,24 @@ public final class DB
     		pstmt = prepareStatement(sql, trxName);
     		setParameters(pstmt, params);
     		rs = pstmt.executeQuery();
-    		if (rs.next())
+    		if (rs.next()) {
     			retValue = rs.getTimestamp(1);
-    		else
+    		}
+    		else {
     			log.info("No Value " + sql);
+    		}
+    		close(rs, pstmt);
     	}
     	catch (SQLException e)
     	{
+    		if(pstmt != null)
+    		{
+    			close(pstmt);
+    		}
+    		if(rs != null)
+    		{
+    			close(rs);
+    		}
     		throw new DBException(e, sql);
     	}
     	finally
@@ -1616,9 +1709,18 @@ public final class DB
             {
                 list.add(new KeyNamePair(rs.getInt(1), rs.getString(2)));
             }
+            close(rs, pstmt);
         }
         catch (Exception e)
         {
+        	if(pstmt != null)
+        	{
+        		close(pstmt);
+        	}
+        	if(rs != null)
+        	{
+        		close(rs);
+        	}
             log.log(Level.SEVERE, sql, getSQLException(e));
         }
         finally
@@ -1663,10 +1765,22 @@ public final class DB
             pstmt = DB.prepareStatement (sql, null);
             rs = pstmt.executeQuery ();
             if (rs.next ())
+            {
                 isSOTrx = "Y".equals(rs.getString(1));
+            }
+            close(rs);
+            close(pstmt);
         }
         catch (Exception e)
         {
+        	if(pstmt != null)
+        	{
+        		close(pstmt);
+        	}
+        	if(rs != null)
+        	{
+        		close(rs);
+        	}
             if (TableName.endsWith("Line"))
             {
                 String hdr = TableName.substring(0, TableName.indexOf("Line"));
@@ -1680,19 +1794,29 @@ public final class DB
                 {
                     pstmt2 = DB.prepareStatement (sql, null);
                     rs2 = pstmt2.executeQuery ();
-                    if (rs2.next ())
+                    if (rs2.next ()) {
                         isSOTrx = "Y".equals(rs2.getString(1));
+                    }
+                    close(rs2, pstmt2);
                 }
                 catch (Exception ee)
                 {
+                	if(pstmt2 != null)
+                	{
+                		close(pstmt2);
+                	}
+                	if(rs2 != null)
+                	{
+                		close(rs2);
+                	}
                 	ee = getSQLException(ee);
                     log.log(Level.FINEST, sql + " - " + e.getMessage(), ee);
                 }
                 finally
                 {
                     close(rs2, pstmt2);
-                    rs= null;
-                    pstmt = null;
+                    rs2= null;
+                    pstmt2 = null;
                 }
             }
             else
@@ -2143,9 +2267,18 @@ public final class DB
             {
                 list.add(new ValueNamePair(rs.getString(1), rs.getString(2)));
             }
+            close(rs, pstmt);
         }
         catch (SQLException e)
         {
+        	if(pstmt != null)
+        	{
+        		close(pstmt);
+        	}
+        	if(rs != null)
+        	{
+        		close(rs);
+        	}
             throw new DBException(e, sql);
         }
         finally
@@ -2186,9 +2319,18 @@ public final class DB
             {
                 list.add(new KeyNamePair(rs.getInt(1), rs.getString(2)));
             }
+            close(rs, pstmt);
         }
         catch (SQLException e)
         {
+        	if(pstmt != null)
+        	{
+        		close(pstmt);
+        	}
+        	if(rs != null)
+        	{
+        		close(rs);
+        	}
             throw new DBException(e, sql);
         }
         finally
@@ -2264,9 +2406,18 @@ public final class DB
             {
                 list.add(rs.getInt(1));
             }
+            close(rs, pstmt);
         }
         catch (SQLException e)
         {
+        	if(pstmt != null)
+        	{
+        		close(pstmt);
+        	}
+        	if(rs != null)
+        	{
+        		close(rs);
+        	}
     		throw new DBException(e, sql);
         }
         finally
