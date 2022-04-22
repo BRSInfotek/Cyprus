@@ -623,6 +623,8 @@ public class MPeriod extends X_C_Period
 			{
 				MDocType type = types[i];
 				String DocBaseType = type.getDocBaseType();
+				if(DocBaseType.equalsIgnoreCase("PDP") || DocBaseType.equalsIgnoreCase("PDR") || DocBaseType.equalsIgnoreCase("MQO") || DocBaseType.equalsIgnoreCase("MOP") || DocBaseType.equalsIgnoreCase("MOF") || DocBaseType.equalsIgnoreCase("MCC") || DocBaseType.equalsIgnoreCase("HRP") || DocBaseType.equalsIgnoreCase("DOO") || DocBaseType.equalsIgnoreCase("ARF") )
+					continue;
 				if (baseTypes.contains(DocBaseType))
 					continue;
 				MPeriodControl pc = new MPeriodControl(this, DocBaseType);
