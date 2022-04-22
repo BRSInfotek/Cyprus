@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Requisition" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="349b3e82-4d07-47ab-8fee-a826ab2d50ba">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Adampere"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CommunityLocal"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="M_Requisition_ID" class="java.math.BigDecimal"/>
 	<queryString>
-		<![CDATA[select * from JRV_REQUISITION where M_Requisition_ID = $P{M_Requisition_ID} ]]>
+		<![CDATA[select * from JRV_REQUISITION where M_Requisition_ID = $P{M_Requisition_ID}]]>
 	</queryString>
 	<field name="M_REQUISITION_ID" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="M_REQUISITION_ID"/>
@@ -19,7 +19,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="RFQDESCRIPTION"/>
 		<property name="com.jaspersoft.studio.field.label" value="RFQDESCRIPTION"/>
 	</field>
-	<field name="IMAGEURL" class="java.lang.String">
+	<field name="IMAGEURL" class="java.io.InputStream">
 		<property name="com.jaspersoft.studio.field.name" value="IMAGEURL"/>
 		<property name="com.jaspersoft.studio.field.label" value="IMAGEURL"/>
 	</field>

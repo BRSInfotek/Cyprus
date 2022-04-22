@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InventoryMove" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="200b8dc0-7df0-4138-b87f-380536049f05">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Adampere"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CommunityLocal"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="M_Movement_ID" class="java.math.BigDecimal"/>
 	<queryString>
@@ -95,7 +95,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="ORGADDRESS"/>
 		<property name="com.jaspersoft.studio.field.label" value="ORGADDRESS"/>
 	</field>
-	<field name="LOGOIMAGE" class="java.lang.String">
+	<field name="LOGOIMAGE" class="java.io.InputStream">
 		<property name="com.jaspersoft.studio.field.name" value="LOGOIMAGE"/>
 		<property name="com.jaspersoft.studio.field.label" value="LOGOIMAGE"/>
 	</field>

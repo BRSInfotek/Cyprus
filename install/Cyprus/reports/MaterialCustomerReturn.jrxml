@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MaterialReceipt" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0506d83c-15e9-442e-8f85-f8b6446cd88b">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Adampere"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CommunityLocal"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="230"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="763"/>
@@ -12,163 +12,164 @@
 		<![CDATA[SELECT *from JRV_MATERIAL_SHIPMENT where M_INOUT_ID= $P{M_InOut_ID}]]>
 	</queryString>
 	<field name="M_INOUT_ID" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="M_INOUT_ID"/>
 		<property name="com.jaspersoft.studio.field.label" value="M_INOUT_ID"/>
 	</field>
 	<field name="SHIPMENTNO" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="SHIPMENTNO"/>
 		<property name="com.jaspersoft.studio.field.name" value="SHIPMENTNO"/>
+		<property name="com.jaspersoft.studio.field.label" value="SHIPMENTNO"/>
 	</field>
 	<field name="ORDERREFERENCE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORDERREFERENCE"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORDERREFERENCE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORDERREFERENCE"/>
 	</field>
 	<field name="C_BPARTNER_ID" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="C_BPARTNER_ID"/>
 		<property name="com.jaspersoft.studio.field.name" value="C_BPARTNER_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_BPARTNER_ID"/>
 	</field>
 	<field name="CUSTOMERNAME" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="CUSTOMERNAME"/>
 		<property name="com.jaspersoft.studio.field.name" value="CUSTOMERNAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="CUSTOMERNAME"/>
 	</field>
 	<field name="SHIPMENTDATE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="SHIPMENTDATE"/>
 		<property name="com.jaspersoft.studio.field.name" value="SHIPMENTDATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="SHIPMENTDATE"/>
 	</field>
 	<field name="AD_USER_ID" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="AD_USER_ID"/>
 		<property name="com.jaspersoft.studio.field.name" value="AD_USER_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="AD_USER_ID"/>
 	</field>
 	<field name="CONTACT" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="CONTACT"/>
 		<property name="com.jaspersoft.studio.field.name" value="CONTACT"/>
+		<property name="com.jaspersoft.studio.field.label" value="CONTACT"/>
 	</field>
 	<field name="ACCOUNTDATE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ACCOUNTDATE"/>
 		<property name="com.jaspersoft.studio.field.name" value="ACCOUNTDATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACCOUNTDATE"/>
 	</field>
 	<field name="C_BPARTNER_LOCATION_ID" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="C_BPARTNER_LOCATION_ID"/>
 		<property name="com.jaspersoft.studio.field.name" value="C_BPARTNER_LOCATION_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_BPARTNER_LOCATION_ID"/>
 	</field>
 	<field name="TELEPHONE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="TELEPHONE"/>
 		<property name="com.jaspersoft.studio.field.name" value="TELEPHONE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TELEPHONE"/>
 	</field>
 	<field name="MOBILE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="MOBILE"/>
 		<property name="com.jaspersoft.studio.field.name" value="MOBILE"/>
+		<property name="com.jaspersoft.studio.field.label" value="MOBILE"/>
 	</field>
 	<field name="TAXID" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="TAXID"/>
 		<property name="com.jaspersoft.studio.field.name" value="TAXID"/>
+		<property name="com.jaspersoft.studio.field.label" value="TAXID"/>
 	</field>
 	<field name="FREIGHTCARRIER" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="FREIGHTCARRIER"/>
 		<property name="com.jaspersoft.studio.field.name" value="FREIGHTCARRIER"/>
+		<property name="com.jaspersoft.studio.field.label" value="FREIGHTCARRIER"/>
 	</field>
 	<field name="NUMBEROFPACKAGES" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="NUMBEROFPACKAGES"/>
 		<property name="com.jaspersoft.studio.field.name" value="NUMBEROFPACKAGES"/>
+		<property name="com.jaspersoft.studio.field.label" value="NUMBEROFPACKAGES"/>
 	</field>
 	<field name="TRACKINGNO" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="TRACKINGNO"/>
 		<property name="com.jaspersoft.studio.field.name" value="TRACKINGNO"/>
+		<property name="com.jaspersoft.studio.field.label" value="TRACKINGNO"/>
 	</field>
 	<field name="M_PRODUCT_ID" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="M_PRODUCT_ID"/>
 		<property name="com.jaspersoft.studio.field.name" value="M_PRODUCT_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="M_PRODUCT_ID"/>
 	</field>
 	<field name="ITEM" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ITEM"/>
 		<property name="com.jaspersoft.studio.field.name" value="ITEM"/>
+		<property name="com.jaspersoft.studio.field.label" value="ITEM"/>
 	</field>
 	<field name="ITEMDESCRIPTION" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ITEMDESCRIPTION"/>
 		<property name="com.jaspersoft.studio.field.name" value="ITEMDESCRIPTION"/>
+		<property name="com.jaspersoft.studio.field.label" value="ITEMDESCRIPTION"/>
 	</field>
 	<field name="ATTRIBUTE" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="ATTRIBUTE"/>
 		<property name="com.jaspersoft.studio.field.name" value="ATTRIBUTE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ATTRIBUTE"/>
 	</field>
 	<field name="ATTRIBUTEDESCRIPTION" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ATTRIBUTEDESCRIPTION"/>
 		<property name="com.jaspersoft.studio.field.name" value="ATTRIBUTEDESCRIPTION"/>
+		<property name="com.jaspersoft.studio.field.label" value="ATTRIBUTEDESCRIPTION"/>
 	</field>
 	<field name="C_UOM_ID" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="C_UOM_ID"/>
 		<property name="com.jaspersoft.studio.field.name" value="C_UOM_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_UOM_ID"/>
 	</field>
 	<field name="UOM" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="UOM"/>
 		<property name="com.jaspersoft.studio.field.name" value="UOM"/>
+		<property name="com.jaspersoft.studio.field.label" value="UOM"/>
 	</field>
 	<field name="QTY" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="QTY"/>
 		<property name="com.jaspersoft.studio.field.name" value="QTY"/>
+		<property name="com.jaspersoft.studio.field.label" value="QTY"/>
 	</field>
 	<field name="C_ORDER_ID" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="C_ORDER_ID"/>
 		<property name="com.jaspersoft.studio.field.name" value="C_ORDER_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="C_ORDER_ID"/>
 	</field>
 	<field name="ORDERND" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORDERND"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORDERND"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORDERND"/>
 	</field>
 	<field name="AD_ORG_ID" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="AD_ORG_ID"/>
 		<property name="com.jaspersoft.studio.field.name" value="AD_ORG_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="AD_ORG_ID"/>
 	</field>
 	<field name="ORGNAME" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGNAME"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGNAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGNAME"/>
 	</field>
 	<field name="ORGTAXID" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGTAXID"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGTAXID"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGTAXID"/>
 	</field>
 	<field name="ORGPHONE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGPHONE"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGPHONE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGPHONE"/>
 	</field>
 	<field name="ORGFAX" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGFAX"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGFAX"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGFAX"/>
 	</field>
 	<field name="ORGEMAIL" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGEMAIL"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGEMAIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGEMAIL"/>
 	</field>
 	<field name="ORGADDRESS" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGADDRESS"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGADDRESS"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGADDRESS"/>
 	</field>
 	<field name="M_WAREHOUSE_ID" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="M_WAREHOUSE_ID"/>
 		<property name="com.jaspersoft.studio.field.name" value="M_WAREHOUSE_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="M_WAREHOUSE_ID"/>
 	</field>
 	<field name="SNO" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="SNO"/>
 		<property name="com.jaspersoft.studio.field.name" value="SNO"/>
+		<property name="com.jaspersoft.studio.field.label" value="SNO"/>
 	</field>
 	<field name="SHIPMENTFROM" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="SHIPMENTFROM"/>
 		<property name="com.jaspersoft.studio.field.name" value="SHIPMENTFROM"/>
+		<property name="com.jaspersoft.studio.field.label" value="SHIPMENTFROM"/>
 	</field>
 	<field name="SHIPMENTTO" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="SHIPMENTTO"/>
 		<property name="com.jaspersoft.studio.field.name" value="SHIPMENTTO"/>
+		<property name="com.jaspersoft.studio.field.label" value="SHIPMENTTO"/>
 	</field>
 	<field name="SHIPPINGMETHOD" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="SHIPPINGMETHOD"/>
 		<property name="com.jaspersoft.studio.field.name" value="SHIPPINGMETHOD"/>
+		<property name="com.jaspersoft.studio.field.label" value="SHIPPINGMETHOD"/>
 	</field>
-	<field name="LOGOIMAGE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="LOGOIMAGE"/>
+	<field name="LOGOIMAGE" class="java.io.InputStream">
 		<property name="com.jaspersoft.studio.field.name" value="LOGOIMAGE"/>
+		<property name="com.jaspersoft.studio.field.label" value="LOGOIMAGE"/>
 	</field>
 	<field name="REPORTNAME" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="REPORTNAME"/>
 		<property name="com.jaspersoft.studio.field.name" value="REPORTNAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="REPORTNAME"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

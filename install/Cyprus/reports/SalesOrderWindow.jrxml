@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SalesOrderWindow" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="137d4e02-00e5-4884-b740-7e34a62fbf46">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Cyprus"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CommunityLocal"/>
 	<parameter name="C_Order_ID" class="java.math.BigDecimal">
 		<defaultValueExpression><![CDATA[$P{C_Order_ID}]]></defaultValueExpression>
 	</parameter>
@@ -18,168 +18,168 @@
 		<property name="com.jaspersoft.studio.field.label" value="PRINTNAME"/>
 	</field>
 	<field name="DOCUMENTNO" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="DOCUMENTNO"/>
 		<property name="com.jaspersoft.studio.field.name" value="DOCUMENTNO"/>
+		<property name="com.jaspersoft.studio.field.label" value="DOCUMENTNO"/>
 	</field>
 	<field name="ORDERDESCRIPTION" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORDERDESCRIPTION"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORDERDESCRIPTION"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORDERDESCRIPTION"/>
 	</field>
-	<field name="IMAGEURL" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="IMAGEURL"/>
+	<field name="IMAGEURL" class="java.io.InputStream">
 		<property name="com.jaspersoft.studio.field.name" value="IMAGEURL"/>
+		<property name="com.jaspersoft.studio.field.label" value="IMAGEURL"/>
 	</field>
 	<field name="SN" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="SN"/>
 		<property name="com.jaspersoft.studio.field.name" value="SN"/>
+		<property name="com.jaspersoft.studio.field.label" value="SN"/>
 	</field>
 	<field name="ORGNAME" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGNAME"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGNAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGNAME"/>
 	</field>
 	<field name="ORGTAXID" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGTAXID"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGTAXID"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGTAXID"/>
 	</field>
 	<field name="ORGPHONE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGPHONE"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGPHONE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGPHONE"/>
 	</field>
 	<field name="ORGFAX" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGFAX"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGFAX"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGFAX"/>
 	</field>
 	<field name="ORGEMAIL" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGEMAIL"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGEMAIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGEMAIL"/>
 	</field>
 	<field name="ORGADDRESS" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="ORGADDRESS"/>
 		<property name="com.jaspersoft.studio.field.name" value="ORGADDRESS"/>
+		<property name="com.jaspersoft.studio.field.label" value="ORGADDRESS"/>
 	</field>
 	<field name="GROSSAMOUNT" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="GROSSAMOUNT"/>
 		<property name="com.jaspersoft.studio.field.name" value="GROSSAMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="GROSSAMOUNT"/>
 	</field>
 	<field name="TOTALTAXABLEAMOUNT" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="TOTALTAXABLEAMOUNT"/>
 		<property name="com.jaspersoft.studio.field.name" value="TOTALTAXABLEAMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTALTAXABLEAMOUNT"/>
 	</field>
 	<field name="TOTALTAXAMOUNT" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="TOTALTAXAMOUNT"/>
 		<property name="com.jaspersoft.studio.field.name" value="TOTALTAXAMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTALTAXAMOUNT"/>
 	</field>
 	<field name="TOTALDISCOUNT" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="TOTALDISCOUNT"/>
 		<property name="com.jaspersoft.studio.field.name" value="TOTALDISCOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTALDISCOUNT"/>
 	</field>
 	<field name="TOTALINVOICE" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="TOTALINVOICE"/>
 		<property name="com.jaspersoft.studio.field.name" value="TOTALINVOICE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTALINVOICE"/>
 	</field>
 	<field name="WORDSAMOUNT" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="WORDSAMOUNT"/>
 		<property name="com.jaspersoft.studio.field.name" value="WORDSAMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="WORDSAMOUNT"/>
 	</field>
 	<field name="DATEORDERED" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="DATEORDERED"/>
 		<property name="com.jaspersoft.studio.field.name" value="DATEORDERED"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATEORDERED"/>
 	</field>
 	<field name="DATEPROMISED" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="DATEPROMISED"/>
 		<property name="com.jaspersoft.studio.field.name" value="DATEPROMISED"/>
+		<property name="com.jaspersoft.studio.field.label" value="DATEPROMISED"/>
 	</field>
 	<field name="SALESREP" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="SALESREP"/>
 		<property name="com.jaspersoft.studio.field.name" value="SALESREP"/>
+		<property name="com.jaspersoft.studio.field.label" value="SALESREP"/>
 	</field>
 	<field name="USERCONTACT" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="USERCONTACT"/>
 		<property name="com.jaspersoft.studio.field.name" value="USERCONTACT"/>
+		<property name="com.jaspersoft.studio.field.label" value="USERCONTACT"/>
 	</field>
 	<field name="TAXID" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="TAXID"/>
 		<property name="com.jaspersoft.studio.field.name" value="TAXID"/>
+		<property name="com.jaspersoft.studio.field.label" value="TAXID"/>
 	</field>
 	<field name="DELIEVERYADDRESS" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="DELIEVERYADDRESS"/>
 		<property name="com.jaspersoft.studio.field.name" value="DELIEVERYADDRESS"/>
+		<property name="com.jaspersoft.studio.field.label" value="DELIEVERYADDRESS"/>
 	</field>
 	<field name="TELEPHONE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="TELEPHONE"/>
 		<property name="com.jaspersoft.studio.field.name" value="TELEPHONE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TELEPHONE"/>
 	</field>
 	<field name="MOBILE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="MOBILE"/>
 		<property name="com.jaspersoft.studio.field.name" value="MOBILE"/>
+		<property name="com.jaspersoft.studio.field.label" value="MOBILE"/>
 	</field>
 	<field name="FAX" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="FAX"/>
 		<property name="com.jaspersoft.studio.field.name" value="FAX"/>
+		<property name="com.jaspersoft.studio.field.label" value="FAX"/>
 	</field>
 	<field name="DISCOUNT" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="DISCOUNT"/>
 		<property name="com.jaspersoft.studio.field.name" value="DISCOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="DISCOUNT"/>
 	</field>
 	<field name="UNITPRICE" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="UNITPRICE"/>
 		<property name="com.jaspersoft.studio.field.name" value="UNITPRICE"/>
+		<property name="com.jaspersoft.studio.field.label" value="UNITPRICE"/>
 	</field>
 	<field name="LISTPRICE" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="LISTPRICE"/>
 		<property name="com.jaspersoft.studio.field.name" value="LISTPRICE"/>
+		<property name="com.jaspersoft.studio.field.label" value="LISTPRICE"/>
 	</field>
 	<field name="QUANTITY" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="QUANTITY"/>
 		<property name="com.jaspersoft.studio.field.name" value="QUANTITY"/>
+		<property name="com.jaspersoft.studio.field.label" value="QUANTITY"/>
 	</field>
 	<field name="AMOUNT" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="AMOUNT"/>
 		<property name="com.jaspersoft.studio.field.name" value="AMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="AMOUNT"/>
 	</field>
 	<field name="CUSTOMER" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="CUSTOMER"/>
 		<property name="com.jaspersoft.studio.field.name" value="CUSTOMER"/>
+		<property name="com.jaspersoft.studio.field.label" value="CUSTOMER"/>
 	</field>
 	<field name="UOM" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="UOM"/>
 		<property name="com.jaspersoft.studio.field.name" value="UOM"/>
+		<property name="com.jaspersoft.studio.field.label" value="UOM"/>
 	</field>
 	<field name="DESCRIPTION" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="DESCRIPTION"/>
 		<property name="com.jaspersoft.studio.field.name" value="DESCRIPTION"/>
+		<property name="com.jaspersoft.studio.field.label" value="DESCRIPTION"/>
 	</field>
 	<field name="CODE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="CODE"/>
 		<property name="com.jaspersoft.studio.field.name" value="CODE"/>
+		<property name="com.jaspersoft.studio.field.label" value="CODE"/>
 	</field>
 	<field name="PAYMENTTERM" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="PAYMENTTERM"/>
 		<property name="com.jaspersoft.studio.field.name" value="PAYMENTTERM"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAYMENTTERM"/>
 	</field>
 	<field name="DOCUMENTNOTE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="DOCUMENTNOTE"/>
 		<property name="com.jaspersoft.studio.field.name" value="DOCUMENTNOTE"/>
+		<property name="com.jaspersoft.studio.field.label" value="DOCUMENTNOTE"/>
 	</field>
 	<field name="CURRENCY" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="CURRENCY"/>
 		<property name="com.jaspersoft.studio.field.name" value="CURRENCY"/>
+		<property name="com.jaspersoft.studio.field.label" value="CURRENCY"/>
 	</field>
 	<field name="TAXABLEAMOUNT" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="TAXABLEAMOUNT"/>
 		<property name="com.jaspersoft.studio.field.name" value="TAXABLEAMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="TAXABLEAMOUNT"/>
 	</field>
 	<field name="TAXAMOUNT" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="TAXAMOUNT"/>
 		<property name="com.jaspersoft.studio.field.name" value="TAXAMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="TAXAMOUNT"/>
 	</field>
 	<field name="TAX" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="TAX"/>
 		<property name="com.jaspersoft.studio.field.name" value="TAX"/>
+		<property name="com.jaspersoft.studio.field.label" value="TAX"/>
 	</field>
 	<field name="RATE" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="RATE"/>
 		<property name="com.jaspersoft.studio.field.name" value="RATE"/>
+		<property name="com.jaspersoft.studio.field.label" value="RATE"/>
 	</field>
 	<title>
 		<band height="80" splitType="Stretch">
@@ -1513,7 +1513,7 @@
 				</textElement>
 				<text><![CDATA[Total Discount]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#,##0.00#;(#,##0.00#)">
 				<reportElement positionType="Float" stretchType="ContainerBottom" x="340" y="20" width="110" height="15" uuid="b74a5217-4c5c-40b1-a994-fa8d3738a81e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54ce73f7-fb3b-423d-be52-e3d029e10050"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -1531,7 +1531,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{GROSSAMOUNT}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#;(#,##0.00#)">
 				<reportElement positionType="Float" stretchType="ContainerBottom" x="450" y="20" width="105" height="15" uuid="b2e520ff-0565-405f-993f-e9640a4a5e55">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1b9013c1-2646-4da7-bf95-abb04f9a3740"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
