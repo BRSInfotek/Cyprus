@@ -1156,7 +1156,9 @@ public class MInventory extends X_M_Inventory implements DocAction
 				ProductCost pc = new ProductCost (getCtx(), 
 						line.getM_Product_ID(), M_AttributeSetInstance_ID, line.get_TrxName());
 				pc.setQty(qty);
-				costs = pc.getProductCosts(as, line.getAD_Org_ID(), as.getCostingMethod(), 0,true);							
+				MProduct product = new MProduct(getCtx(), line.getM_Product_ID(), line.get_TrxName());
+//				costs = pc.getProductCosts(as, line.getAD_Org_ID(), as.getCostingMethod(), 0,true);							
+				costs = pc.getProductCosts(as, line.getAD_Org_ID(), product.getCostingMethod(as), 0,true);
 			}
 			if (costs == null)
 			{
