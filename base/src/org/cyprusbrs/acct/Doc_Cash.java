@@ -307,8 +307,12 @@ public class Doc_Cash extends Doc
 										fl.setC_Tax_ID(childTax.getC_Tax_ID());
 
 									totalTaxAmount=totalTaxAmount.add(childTax.getAmount());
+									if(totalTaxAmount.compareTo(Env.ZERO) != 0)
+										break;
 								}
 							}
+							if(totalTaxAmount.compareTo(Env.ZERO) != 0)
+								break;
 						}
 					//	ACCTTYPE_TaxDue
 						System.out.println("totalTaxAmount =" + totalTaxAmount);
@@ -366,8 +370,12 @@ public class Doc_Cash extends Doc
 									fl.setC_Tax_ID(childTax.getC_Tax_ID());
 
 								totalTaxAmount=totalTaxAmount.add(childTax.getAmount());
+								if(totalTaxAmount.compareTo(Env.ZERO) != 0)
+									break;
 							}
 						}
+						if(totalTaxAmount.compareTo(Env.ZERO) != 0)
+							break;
 					}
 					
 						System.out.println(" totalTaxAmount "+totalTaxAmount);

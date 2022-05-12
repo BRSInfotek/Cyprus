@@ -401,8 +401,12 @@ public class Doc_BankStatement extends Doc
 								fl.setC_Tax_ID(childTax.getC_Tax_ID());
 							
 							totalTaxAmount=totalTaxAmount.add(childTax.getAmount());
+							if(totalTaxAmount.compareTo(Env.ZERO) != 0)
+								break;
 						}
 					}
+					if(totalTaxAmount.compareTo(Env.ZERO) != 0)
+						break;
 				}
 				/// End of code by Anshul @20210708
 				System.out.println("totalTaxAmount =" + totalTaxAmount);
@@ -450,16 +454,19 @@ public class Doc_BankStatement extends Doc
 								fl.setC_Tax_ID(childTax.getC_Tax_ID());
 							
 							totalTaxAmount=totalTaxAmount.add(childTax.getAmount());
+							if(totalTaxAmount.compareTo(Env.ZERO) != 0)
+								break;
 						}
 					}
-					
-				
+					if(totalTaxAmount.compareTo(Env.ZERO) != 0)
+						break;
+				}
 					System.out.println(" totalTaxAmount "+totalTaxAmount);
 					fl = fact.createLine(line,
 							line.getChargeAccount(as, line.getChargeAmt().negate()),
 							line.getC_Currency_ID(), (line.getChargeAmt().add(totalTaxAmount.abs())).negate(), null);
 //							line.getC_Currency_ID(), line.getChargeAmt().negate(), null);	
-				}
+				
 				/// End of code by Anshul @20210708
 			}
 			if (fl != null && C_BPartner_ID != 0)
