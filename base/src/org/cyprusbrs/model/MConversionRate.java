@@ -439,7 +439,7 @@ public class MConversionRate extends X_C_Conversion_Rate
 	private String appliedChecks() 
 	{
 		
-		/// Updated by Anshul @20210630
+		/// Updated by Anshul @20220512 as per discussed with Surya
 		List<Object> paramCase1=new ArrayList<Object>();
 		paramCase1.add(getAD_Client_ID());
 		paramCase1.add(getAD_Org_ID());
@@ -448,9 +448,10 @@ public class MConversionRate extends X_C_Conversion_Rate
 		paramCase1.add(getValidFrom());
 		paramCase1.add(getValidTo());
 		paramCase1.add(getC_ConversionType_ID());
+		paramCase1.add(getC_Conversion_Rate_ID());
 		//paramCase1.add(isActive());
 
-		String sqlCase1="SELECT FN_GET_TOTAL_COUNT_CONVERSION_RATE(?,?,?,?,?,?,?) FROM DUAL";
+		String sqlCase1="SELECT FN_GET_TOTAL_COUNT_CONVERSION_RATE_NEW(?,?,?,?,?,?,?,?) FROM DUAL";
 		Integer retCase1=DB.getSQLValue(get_TrxName(), sqlCase1, paramCase1);
 		if(retCase1>0)
 			return Msg.getMsg(getCtx(), "Cyprus_ConversionRate_AlreadyExist");//"cannot save as Already exist transaction ";
@@ -519,9 +520,47 @@ public class MConversionRate extends X_C_Conversion_Rate
 	 *  @author Mukesh : Need to create or update the Transaction @20210110
 	 */
 	protected boolean afterSave (boolean newRecord, boolean success)
-	{
-		if (!success)
-			return success;
+	{  
+		 if (newRecord)
+         {
+			 List<Object> paramCase1=new ArrayList<Object>();
+				paramCase1.add(getAD_Client_ID());
+				paramCase1.add(getAD_Org_ID());
+				paramCase1.add(getC_Currency_ID());
+				paramCase1.add(getC_Currency_ID_To());
+				paramCase1.add(getValidFrom());
+				paramCase1.add(getValidTo());
+				paramCase1.add(getC_ConversionType_ID());
+				//paramCase1.add(isActive());
+
+				String sqlCase1="SELECT FN_GET_TOTAL_COUNT_CONVERSION_RATE(?,?,?,?,?,?,?) FROM DUAL";
+				Integer retCase1=DB.getSQLValue(get_TrxName(), sqlCase1, paramCase1);
+				if(retCase1 <= 0)
+             {
+                 MConversionRate conRate = new MConversionRate(getCtx(), 0, null);
+                 conRate.setAD_Client_ID(getAD_Client_ID());
+                // conRate.UpdateFromServer = false;
+                 conRate.setAD_Org_ID(getAD_Org_ID());
+                 conRate.setC_Currency_ID(getC_Currency_ID_To());
+                 conRate.setC_Currency_ID_To(getC_Currency_ID());
+                 conRate.setC_ConversionType_ID(getC_ConversionType_ID());
+                 conRate.setDivideRate(getMultiplyRate());
+                 conRate.setMultiplyRate(getDivideRate());
+                 conRate.setValidFrom(getValidFrom());
+                 conRate.setValidTo(getValidTo());
+                 if (!conRate.save(get_TrxName()))
+                 {
+                   //  ValueNamePair pp = VLogger.RetrieveError();
+                     log.info("Conversion Rate not saved");
+                 }
+             }
+         }
+		 
+		 else {
+         //end
+     //    return true;
+//		if (!success)
+//			return success;
 		
 		log.info(" Currency "+getC_Currency_ID()+" Currency To "+getC_Currency_ID_To());
 		
@@ -533,36 +572,23 @@ public class MConversionRate extends X_C_Conversion_Rate
 		params.add(getC_Currency_ID());
 		params.add(getAD_Client_ID());
 		params.add(getAD_Org_ID());
+		params.add(getValidFrom());
+		params.add(getValidTo());
 		
 		String sqlQuery="select C_Conversion_Rate_Id from C_Conversion_Rate WHERE c_currency_id=?"
-						+ " and c_currency_id_to=? and Ad_Client_ID=? and Ad_Org_ID=?";
+						+ " and c_currency_id_to=? and Ad_Client_ID=? and Ad_Org_ID=? and ValidFrom=? and validTo=?";
 		Integer C_Conversion_Rate_ID=DB.getSQLValue(get_TrxName(), sqlQuery, params);
 		
 		log.info("Reverse Currency ID "+C_Conversion_Rate_ID);
 		if(C_Conversion_Rate_ID>0) /// Reverse Currency is exist to update it
 		{
-			String sqlUp="Update C_Conversion_Rate set MULTIPLYRATE= ?, DIVIDERATE= ? where C_Conversion_Rate_Id= ?";
-			Integer retUp=DB.executeUpdateEx(sqlUp, new Object[]{getDivideRate(), getMultiplyRate(), C_Conversion_Rate_ID },get_TrxName());
+			String sqlUp="Update C_Conversion_Rate set MULTIPLYRATE= ?, DIVIDERATE= ?, C_CONVERSIONTYPE_ID= ? where C_Conversion_Rate_Id= ?";
+			Integer retUp=DB.executeUpdateEx(sqlUp, new Object[]{getDivideRate(), getMultiplyRate(),getC_ConversionType_ID(), C_Conversion_Rate_ID },get_TrxName());
 			log.info("Reverse Currency update MULTIPLYRATE "+getMultiplyRate()+" and  DIVIDERATE"+getDivideRate()+" Ret  "+retUp);
-		}
-		else{  // Create new reverse Conversion rate
-			
-		MConversionRate reverseConversion=new MConversionRate(getCtx(), 0, get_TrxName()); 
-		copyValues(this, reverseConversion);
-		reverseConversion.setClientOrg(getAD_Client_ID(), getAD_Org_ID());
-		reverseConversion.setC_Currency_ID(getC_Currency_ID_To());
-		reverseConversion.setC_Currency_ID_To(getC_Currency_ID());
-		reverseConversion.setDivideRate(getMultiplyRate());
-		reverseConversion.setMultiplyRate(getDivideRate());
-		log.info("Not update Reverse Currency ID "+reverseConversion);
-		if(!reverseConversion.save(get_TrxName()))
-		{
-			/// need to apply adempiere exception
-			log.info("Not update Reverse Currency ID ");
-		}
-			
-		}
-			
+		}			
+		
+	 }
+		 
 		return true;
 	}	//	afterSave
 	
