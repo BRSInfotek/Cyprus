@@ -647,4 +647,20 @@ public class X_AD_Client extends PO implements I_AD_Client, I_Persistent
 	{
 		return (String)get_Value(COLUMNNAME_WindowsAttachmentPath);
 	}
+	/** Set Port.
+	@param EmailPort Port	  */
+public void setEmailPort (int EmailPort)
+{
+	set_Value (COLUMNNAME_EmailPort, Integer.valueOf(EmailPort));
+}
+
+/** Get Port.
+	@return Port	  */
+public int getEmailPort () 
+{
+	Integer ii = (Integer)get_Value(COLUMNNAME_EmailPort);
+	if (ii == null)
+		 return 0;
+	return ii.intValue();
+}
 }

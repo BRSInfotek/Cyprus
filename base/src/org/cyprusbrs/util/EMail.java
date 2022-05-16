@@ -204,6 +204,7 @@ public final class EMail implements Serializable
 			return m_sentMsg;
 		}
 		//
+		MClient client = MClient.get (m_ctx, Env.getAD_Client_ID(m_ctx));
 		Properties props = System.getProperties();
 		props.put("mail.store.protocol", "smtp");
 		props.put("mail.transport.protocol", "smtp");
@@ -219,8 +220,10 @@ public final class EMail implements Serializable
 			if (m_smtpHost.equalsIgnoreCase("smtp.gmail.com")) {
 				// TODO: make it configurable
 				// Enable gmail port and ttls - Hardcoded
-				props.put("mail.smtp.port", "587");
+//				props.put("mail.smtp.port", "587");
+				props.put("mail.smtp.port", client.getEmailPort());
 				props.put("mail.smtp.starttls.enable", "true");
+				props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 			}
 			
 			session = Session.getInstance(props, m_auth);

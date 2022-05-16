@@ -449,4 +449,12 @@ public interface I_AD_Client
 
 	/** Get Windows Attachment Path	  */
 	public String getWindowsAttachmentPath();
+	 /** Column name EmailPort */
+    public static final String COLUMNNAME_EmailPort = "EmailPort";
+
+	/** Set Port	  */
+	public void setEmailPort (int EmailPort);
+
+	/** Get Port	  */
+	public int getEmailPort();
 }
