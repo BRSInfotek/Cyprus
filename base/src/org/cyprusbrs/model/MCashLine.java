@@ -379,31 +379,31 @@ public class MCashLine extends X_C_CashLine
 		// End Code
 		
 		
-		/// If Payment Type Changed 
-		// Update the code regarding trello : Payment Module In Adempiere by Mukesh @20210114
-		if(is_ValueChanged(MCashLine.COLUMNNAME_PaymentType))
-		{
-//			if(getPaymentType().equalsIgnoreCase(MCashLine.PAYMENTTYPE_Inward))
+//		/// If Payment Type Changed 
+//		// Update the code regarding trello : Payment Module In Adempiere by Mukesh @20210114
+//		if(is_ValueChanged(MCashLine.COLUMNNAME_PaymentType))
+//		{
+////			if(getPaymentType().equalsIgnoreCase(MCashLine.PAYMENTTYPE_Inward))
+////				setAmount(getAmount().negate());
+////			else
+////				setAmount(getAmount().abs());
+//			if(getPaymentType().equalsIgnoreCase(MCashLine.PAYMENTTYPE_Outward))
 //				setAmount(getAmount().negate());
 //			else
 //				setAmount(getAmount().abs());
-			if(getPaymentType().equalsIgnoreCase(MCashLine.PAYMENTTYPE_Outward))
-				setAmount(getAmount().negate());
-			else
-				setAmount(getAmount().abs());
-		}
-		/// Amount value changed  
-		if(is_ValueChanged(MCashLine.COLUMNNAME_Amount))
-		{	
+//		}
+//		/// Amount value changed  
+//		if(is_ValueChanged(MCashLine.COLUMNNAME_Amount))
+//		{	
+////			if(getAmount().compareTo(Env.ZERO)>0)
+////				setPaymentType(MCashLine.PAYMENTTYPE_Outward);
+////			else
+////				setPaymentType(MCashLine.PAYMENTTYPE_Inward);
 //			if(getAmount().compareTo(Env.ZERO)>0)
-//				setPaymentType(MCashLine.PAYMENTTYPE_Outward);
+//			    setPaymentType(MCashLine.PAYMENTTYPE_Inward);
 //			else
-//				setPaymentType(MCashLine.PAYMENTTYPE_Inward);
-			if(getAmount().compareTo(Env.ZERO)>0)
-			    setPaymentType(MCashLine.PAYMENTTYPE_Inward);
-			else
-				setPaymentType(MCashLine.PAYMENTTYPE_Outward);
-		}
+//				setPaymentType(MCashLine.PAYMENTTYPE_Outward);
+//		}
 		/// End of code by Mukesh @20210311
 		
 		// Updated by Anil @20210625

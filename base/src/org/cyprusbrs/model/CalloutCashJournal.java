@@ -186,4 +186,26 @@ public class CalloutCashJournal extends CalloutEngine
 		return "";
 	}	//	CashBook
 	
+	public String changeInAmount (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value)
+	{
+		if (isCalloutActive())
+			return "";
+
+		String paymentType = (String) mField.getValue();
+
+		if(paymentType.equalsIgnoreCase("P"))
+		{
+			    BigDecimal bdAmount = (BigDecimal)mTab.getValue("Amount");
+                mTab.setValue("Amount", bdAmount.negate());
+		}
+				
+			else if(paymentType.equalsIgnoreCase("R")) {
+				BigDecimal bdAmount = (BigDecimal)mTab.getValue("Amount");
+                mTab.setValue("Amount", bdAmount.abs());
+			}
+
+		return "";
+	
+	}	
+	
 }	//	CalloutCashJournal
