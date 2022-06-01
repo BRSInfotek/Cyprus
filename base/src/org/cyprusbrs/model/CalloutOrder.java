@@ -149,7 +149,7 @@ public class CalloutOrder extends CalloutEngine
 					if (!newDocNo && AD_Sequence_ID != rs.getInt(7))
 						newDocNo = true;
 					if (newDocNo)
-						if (Ini.isPropertyBool(Ini.P_ADEMPIERESYS) && Env.getAD_Client_ID(Env.getCtx()) < 1000000)
+						if (Ini.isPropertyBool(Ini.P_CYPRUSSYS) && Env.getAD_Client_ID(Env.getCtx()) < 1000000)
 							mTab.setValue("DocumentNo", "<" + rs.getString(6) + ">");
 						else
 						{

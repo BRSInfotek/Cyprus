@@ -34,7 +34,7 @@ public class CyprusThemeInnova extends org.cyprus.plaf.CyprusTheme
 	}	//	AdempiereThemeBlueMetal
 	
 	/**	Name			*/
-	public static final String	NAME = "Adempiere Theme";
+	public static final String	NAME = "Cyprus Theme";
 	
 	/**
 	 *  Set Defaults

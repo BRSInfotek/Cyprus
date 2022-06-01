@@ -87,7 +87,7 @@ public class MSequence extends X_AD_Sequence
 		int retValue = -1;
 
 		//	Check AdempiereSys
-		boolean adempiereSys = Ini.isPropertyBool(Ini.P_ADEMPIERESYS);
+		boolean adempiereSys = Ini.isPropertyBool(Ini.P_CYPRUSSYS);
 		if (adempiereSys && AD_Client_ID > 11)
 			adempiereSys = false;
 		//
@@ -374,7 +374,7 @@ public class MSequence extends X_AD_Sequence
 			throw new IllegalArgumentException("TableName missing");
 
 		//	Check AdempiereSys
-		boolean adempiereSys = Ini.isPropertyBool(Ini.P_ADEMPIERESYS);
+		boolean adempiereSys = Ini.isPropertyBool(Ini.P_CYPRUSSYS);
 		if (adempiereSys && AD_Client_ID > 11)
 			adempiereSys = false;
 		//
@@ -669,7 +669,7 @@ public class MSequence extends X_AD_Sequence
 		}
 
 		//	Check AdempiereSys
-		boolean adempiereSys = Ini.isPropertyBool(Ini.P_ADEMPIERESYS);
+		boolean adempiereSys = Ini.isPropertyBool(Ini.P_CYPRUSSYS);
 		if (CLogMgt.isLevel(LOGLEVEL))
 			s_log.log(LOGLEVEL, "DocType_ID=" + C_DocType_ID + " [" + trxName + "]");
 

@@ -74,14 +74,14 @@ public class WebUIServlet extends DHtmlLayoutServlet
         boolean started = Cyprus.startup(false);
         if(!started)
         {
-            throw new ServletException("Could not start ADempiere");
+            throw new ServletException("Could not start Cyprus");
         }
         
         // hengsin: temporary solution for problem with zk client
-        Ini.setProperty(Ini.P_ADEMPIERESYS, false);
+        Ini.setProperty(Ini.P_CYPRUSSYS, false);
         ReportCtl.setReportViewerProvider(new ZkReportViewerProvider());
         ReportStarter.setReportViewerProvider(new ZkJRViewerProvider());
-        logger.info("ADempiere started successfully");
+        logger.info("Cyprus started successfully");
         /**
          * End ADempiere Start
          */

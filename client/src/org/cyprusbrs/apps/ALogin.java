@@ -637,7 +637,7 @@ public final class ALogin extends CDialog
 		}
 		
 		//	Reference check
-		Ini.setProperty(Ini.P_ADEMPIERESYS, "Reference".equalsIgnoreCase(CConnection.get().getDbUid()));
+		Ini.setProperty(Ini.P_CYPRUSSYS, "Reference".equalsIgnoreCase(CConnection.get().getDbUid()));
 
 		//	Reference check
 		Ini.setProperty(Ini.P_LOGMIGRATIONSCRIPT, "Reference".equalsIgnoreCase(CConnection.get().getDbUid()));

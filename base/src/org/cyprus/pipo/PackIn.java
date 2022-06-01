@@ -228,10 +228,10 @@ public class PackIn extends SvrProcess {
 		org.cyprusbrs.Cyprus.startup(true);
 
 		// globalqss - added argument 8 to generate system sequences
-		if (args.length > 8 && args[8].equals(Ini.P_ADEMPIERESYS)) {
+		if (args.length > 8 && args[8].equals(Ini.P_CYPRUSSYS)) {
 			System.out.println("**** WARNING: Working with system sequences "
-					+ Ini.P_ADEMPIERESYS + " ****");
-			Ini.setProperty(Ini.P_ADEMPIERESYS, true);
+					+ Ini.P_CYPRUSSYS + " ****");
+			Ini.setProperty(Ini.P_CYPRUSSYS, true);
 		}
 
 		PackIn packIn = new PackIn();
