@@ -471,7 +471,7 @@ public final class Preference extends CDialog
 		autoCommit.setSelected(Env.isAutoCommit(Env.getCtx()));
 		autoNew.setSelected(Env.isAutoNew(Env.getCtx()));
 		//	AdempiereSys
-		adempiereSys.setSelected(Ini.isPropertyBool(Ini.P_ADEMPIERESYS));
+		adempiereSys.setSelected(Ini.isPropertyBool(Ini.P_CYPRUSSYS));
 		//	LogMigrationScript
 		logMigrationScript.setSelected(Ini.isPropertyBool(Ini.P_LOGMIGRATIONSCRIPT));
 		if (Env.getAD_Client_ID(Env.getCtx()) > 20)
@@ -572,7 +572,7 @@ public final class Preference extends CDialog
 		Ini.setProperty(Ini.P_A_NEW, (autoNew.isSelected()));
 		Env.setAutoNew(Env.getCtx(), autoNew.isSelected());
 		//	AdempiereSys
-		Ini.setProperty(Ini.P_ADEMPIERESYS, adempiereSys.isSelected());
+		Ini.setProperty(Ini.P_CYPRUSSYS, adempiereSys.isSelected());
 		//	LogMigrationScript
 		Ini.setProperty(Ini.P_LOGMIGRATIONSCRIPT, logMigrationScript.isSelected());
 		if (MSystem.isSwingRememberPasswordAllowed()) {

@@ -1060,12 +1060,12 @@ public class ConfigurationData
 	/** Application Server Type		*/
 	static String[]	APPSTYPE = new String[]
 		{ APPSTYPE_JBOSS
-		, APPSTYPE_GLASSFISH
+//		, APPSTYPE_GLASSFISH		// Committed by Mukesh @20220531
 		};
 	/** Database Configs	*/
 	private Config[] m_appsConfig = new Config[]
 	    { new ConfigJBoss(this)
-	    , new ConfigGlassfish( this )
+//	    , new ConfigGlassfish( this )		/// Committed by Mukesh @20220531
 	    };
 
 	/**

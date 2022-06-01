@@ -42,7 +42,7 @@ public class CyprusLookAndFeel extends com.jgoodies.looks.plastic.Plastic3DLookA
 	}   //  CompiereLookAndFeel
 
 	/** The name                    */
-	public static final     String  NAME = "Adempiere";
+	public static final     String  NAME = "Cyprus";
 
 	/** The Theme                   */
 	private static          PlasticTheme  s_adempiereTheme = new org.cyprus.plaf.CyprusTheme();

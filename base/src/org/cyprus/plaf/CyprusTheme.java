@@ -74,7 +74,7 @@ public class CyprusTheme extends com.jgoodies.looks.plastic.PlasticTheme {
 	
 	//-------------------------------------------------
 	/** Theme Name	*/
-	protected static String		s_name = "Adempiere Theme";
+	protected static String		s_name = "Cyprus Theme";
 	
     public static final String	NAME = s_name;
 	/**	Logger					*/

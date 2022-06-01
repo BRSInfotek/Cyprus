@@ -72,10 +72,10 @@ public final class Ini implements Serializable
 
 	/** Apps User ID		*/
 	public static final String	P_UID = 			"ApplicationUserID";
-	private static final String	DEFAULT_UID = 		"GardenAdmin";
+	private static final String	DEFAULT_UID = 		"CyprusAdmin";
 	/** Apps Password		*/
 	public static final String	P_PWD = 			"ApplicationPassword";
-	private static final String	DEFAULT_PWD = 		"GardenAdmin";
+	private static final String	DEFAULT_PWD = 		"CyprusAdmin";
 	/** Store Password		*/
 	public static final String	P_STORE_PWD = 		"StorePassword";
 	private static final boolean DEFAULT_STORE_PWD = true;
@@ -97,7 +97,7 @@ public final class Ini implements Serializable
 	private static final String	DEFAULT_CONNECTION = "";
 	/** Data Source			*/
 	public static final String  P_CONTEXT = 		"DataSource";
-	private static final String	DEFAULT_CONTEXT	= 	"java:adempiereDB";
+	private static final String	DEFAULT_CONTEXT	= 	"java:cyprusDB";
 	/** Look & Feel			*/
 	public static final String	P_UI_LOOK =			"UILookFeel";
 
@@ -123,8 +123,8 @@ public final class Ini implements Serializable
 	public static final String	P_A_NEW =			"AutoNew";
 	private static final boolean DEFAULT_A_NEW =	false;
 	/** Dictionary Maintenance	*/
-	public static final String  P_ADEMPIERESYS =		"CyprusSys";	//	Save system records
-	private static final boolean DEFAULT_ADEMPIERESYS = false;
+	public static final String  P_CYPRUSSYS =		"CyprusSys";	//	Save system records
+	private static final boolean DEFAULT_CYPRUSSYS = false;
 	/** Log Migration Script	*/
 	public static final String  P_LOGMIGRATIONSCRIPT =		"LogMigrationScript";	//	Log migration script
 	private static final boolean DEFAULT_LOGMIGRATIONSCRIPT = false;
@@ -198,7 +198,7 @@ public final class Ini implements Serializable
 		P_CONNECTION, P_STORE_PWD,
 		P_UI_LOOK, P_UI_THEME, /* P_UI_FLAT,*/
 		P_A_COMMIT, P_A_LOGIN, P_A_NEW, 
-		P_ADEMPIERESYS, P_LOGMIGRATIONSCRIPT, P_SHOW_ACCT, P_SHOW_TRL, 
+		P_CYPRUSSYS, P_LOGMIGRATIONSCRIPT, P_SHOW_ACCT, P_SHOW_TRL, 
 		P_SHOW_ADVANCED, P_CACHE_WINDOW,
 		P_CONTEXT, P_TEMP_DIR,
 		P_ROLE, P_CLIENT, P_ORG, P_PRINTER, P_WAREHOUSE, P_TODAY,
@@ -216,7 +216,7 @@ public final class Ini implements Serializable
 		DEFAULT_CONNECTION, DEFAULT_STORE_PWD?"Y":"N",
 		DEFAULT_UI_LOOK, DEFAULT_UI_THEME, /* DEFAULT_UI_FLAT?"Y":"N", */
 		DEFAULT_A_COMMIT?"Y":"N", DEFAULT_A_LOGIN?"Y":"N", DEFAULT_A_NEW?"Y":"N",
-		DEFAULT_ADEMPIERESYS?"Y":"N", DEFAULT_LOGMIGRATIONSCRIPT?"Y":"N", DEFAULT_SHOW_ACCT?"Y":"N", DEFAULT_SHOW_TRL?"Y":"N", 
+		DEFAULT_CYPRUSSYS?"Y":"N", DEFAULT_LOGMIGRATIONSCRIPT?"Y":"N", DEFAULT_SHOW_ACCT?"Y":"N", DEFAULT_SHOW_TRL?"Y":"N", 
 		DEFAULT_SHOW_ADVANCED?"Y":"N", DEFAULT_CACHE_WINDOW?"Y":"N",
 		DEFAULT_CONTEXT, DEFAULT_TEMP_DIR,
 		DEFAULT_ROLE, DEFAULT_CLIENT, DEFAULT_ORG, DEFAULT_PRINTER, DEFAULT_WAREHOUSE, DEFAULT_TODAY.toString(),
@@ -782,7 +782,7 @@ public final class Ini implements Serializable
 
 	/**
 	 * 	Find Cyprus Home
-	 *	@return adempiere home or null
+	 *	@return CYPRUS home or null
 	 */
 	public static String findCyprusHome()
 	{

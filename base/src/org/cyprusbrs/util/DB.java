@@ -1861,7 +1861,7 @@ public final class DB
 	public static int getNextID (int AD_Client_ID, String TableName, String trxName)
 	{
 		boolean SYSTEM_NATIVE_SEQUENCE = MSysConfig.getBooleanValue("SYSTEM_NATIVE_SEQUENCE",false);
-		boolean adempiereSys = Ini.isPropertyBool(Ini.P_ADEMPIERESYS);
+		boolean adempiereSys = Ini.isPropertyBool(Ini.P_CYPRUSSYS);
 
 		if(SYSTEM_NATIVE_SEQUENCE && !adempiereSys)
 		{
