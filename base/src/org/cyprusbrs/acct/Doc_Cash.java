@@ -293,7 +293,7 @@ public class Doc_Cash extends Doc
 
 								totalTaxAmount=line.getTaxAmount();
 							}
-							else // Child Tax
+							else if(line.getTaxAmount() !=null && line.getTaxAmount().signum() != 0)// Child Tax
 							{
 								DocTax[] m_sum_taxes=UtilTax.loadSummaryTaxes(get_ID(),UtilTax.CASHJOURNAL);
 								log.fine("Lines=" + p_lines.length + ", Taxes=" + m_sum_taxes.length);
@@ -355,7 +355,7 @@ public class Doc_Cash extends Doc
 
 							totalTaxAmount=line.getTaxAmount();
 						}
-						else // Child Tax
+						else if(line.getTaxAmount() !=null && line.getTaxAmount().signum() != 0) // Child Tax
 						{
 							DocTax[] m_sum_taxes=UtilTax.loadSummaryTaxes(get_ID(),UtilTax.CASHJOURNAL);
 							log.fine("Lines=" + p_lines.length + ", Taxes=" + m_sum_taxes.length);

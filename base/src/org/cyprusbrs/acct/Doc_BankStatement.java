@@ -386,7 +386,7 @@ public class Doc_BankStatement extends Doc
 						
 						totalTaxAmount=line.getTaxAmount();
 					}
-					else // Child Tax
+					else if(line.getTaxAmount() !=null && line.getTaxAmount().signum() != 0)// Child Tax
 					{
 //						DocTax[] m_sum_taxes=loadSummaryTaxes();
 						DocTax[] m_sum_taxes=UtilTax.loadSummaryTaxes(get_ID(),UtilTax.BANKSTATEMENT); // Updated by Anshul @20210901
@@ -438,7 +438,7 @@ public class Doc_BankStatement extends Doc
 						
 						totalTaxAmount=line.getTaxAmount();
 					}
-					else // Child Tax
+					else if(line.getTaxAmount() !=null && line.getTaxAmount().signum() != 0) // Child Tax
 					{
 //						DocTax[] m_sum_taxes=loadSummaryTaxes();
 						DocTax[] m_sum_taxes=UtilTax.loadSummaryTaxes(get_ID(),UtilTax.BANKSTATEMENT); // Updated by Anshul @20210901

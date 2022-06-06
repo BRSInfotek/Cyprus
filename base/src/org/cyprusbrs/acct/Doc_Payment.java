@@ -139,13 +139,13 @@ public class Doc_Payment extends Doc
 		retValue = retValue.add(getAmount(Doc.AMTTYPE_Gross));
 		sb.append(getAmount(Doc.AMTTYPE_Gross));
 		//  - Lines
-		for (int i = 0; i < p_lines.length; i++)
-		{
-			BigDecimal lineBalance = ((DocLine_Bank)p_lines[i]).getStmtAmt();
+//		for (int i = 0; i < p_lines.length; i++)
+//		{
+	//		BigDecimal lineBalance = ((DocLine_Bank)p_lines[i]).getStmtAmt();
 			BigDecimal Balance = this.getAmount();
 			retValue = retValue.subtract(Balance);
 			sb.append("-").append(Balance);
-		}
+	//	}
 		sb.append("]");
 		//
 		for(DocTax i:m_taxes)
@@ -228,11 +228,11 @@ public class Doc_Payment extends Doc
 						
 						totalTaxAmount=pay.getTaxAmt();
 					}
-					else // Child Tax
+					else if(pay.getTaxAmt() !=null && pay.getTaxAmt().signum() != 0) // Child Tax
 					{
 						DocTax[] m_sum_taxes=UtilTax.loadSummaryTaxes(get_ID(),UtilTax.PAYMENT);
-						log.fine("Lines=" + p_lines.length + ", Taxes=" + m_sum_taxes.length);
-						System.out.println("Lines=" + p_lines.length + ", Taxes=" + m_sum_taxes.length);
+						log.fine("Taxes=" + m_sum_taxes.length);
+						System.out.println("Taxes=" + m_sum_taxes.length);
 						for(DocTax childTax:m_sum_taxes)
 						{
 							fl = fact.createLine(null,
@@ -287,14 +287,14 @@ public class Doc_Payment extends Doc
 					
 					totalTaxAmount=pay.getTaxAmt();
 				}
-				else // Child Tax
+				else if(pay.getTaxAmt() !=null && pay.getTaxAmt().signum() != 0) // Child Tax
 				{
 					DocTax[] m_sum_taxes=UtilTax.loadSummaryTaxes(get_ID(),UtilTax.PAYMENT);
-					log.fine("Lines=" + p_lines.length + ", Taxes=" + m_sum_taxes.length);
-					System.out.println("Lines=" + p_lines.length + ", Taxes=" + m_sum_taxes.length);
+					log.fine("Taxes=" + m_sum_taxes.length);
+					System.out.println("Taxes=" + m_sum_taxes.length);
 					for(DocTax childTax:m_sum_taxes)
 					{
-						System.out.println("Lines=" + p_lines.length + ", childTax.getAmount() =" + childTax.getAmount());
+						System.out.println("childTax.getAmount() =" + childTax.getAmount());
 						fl = fact.createLine(null,
 								childTax.getAccount(DocTax.ACCTTYPE_TaxCredit, as),
 						pay.getC_Currency_ID(), childTax.getAmount(),null);
