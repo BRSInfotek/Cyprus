@@ -67,44 +67,44 @@ public class UtilTax {
 		{
 		 sql = "select CB.C_Tax_ID as C_Tax_ID ,t.Name as Name,t.Rate as Rate,CB.ChargeAmt as ChargeAmt,CB.TaxAmt as TaxAmt,t.IsSummary as IsSummary "
 			 + " from C_Tax t,C_BankStatementLine CB" 
-			 + " Where t.C_Tax_ID=CB.C_Tax_ID AND CB.C_BankStatement_ID=?";
+			 + " Where t.C_Tax_ID=CB.C_Tax_ID AND t.AD_Client_ID=CB.AD_Client_ID AND t.AD_org_ID=CB.AD_org_ID AND CB.C_BankStatement_ID=?";
 		}
 		if(CASHJOURNAL.equalsIgnoreCase(p_Class))
 		{
 		 sql = "select CB.C_Tax_ID as C_Tax_ID ,t.Name as Name,t.Rate as Rate,CB.Amount as ChargeAmt,CB.TaxAmt as TaxAmt,t.IsSummary as IsSummary "
 			 + " from C_Tax t,C_CashLine CB" 
-			 + " Where t.C_Tax_ID=CB.C_Tax_ID AND CB.C_Cash_ID=?";
+			 + " Where t.C_Tax_ID=CB.C_Tax_ID AND t.AD_Client_ID=CB.AD_Client_ID AND t.AD_org_ID=CB.AD_org_ID AND CB.C_Cash_ID=?";
 		}
 		if(PAYMENT.equalsIgnoreCase(p_Class))	
 		{
-			boolean  IsMultiCharge = "N".equals("N");
-			sql = "select IsMultiCharge from C_Payment where C_Payment_ID=?";
-			PreparedStatement pstmt1 = null;
-			ResultSet rs1 = null;
-			try
-			{
-				pstmt1 = DB.prepareStatement(sql, null);
-				pstmt1.setInt(1, p_GetID);
-				rs1 = pstmt1.executeQuery();
-				//
-				while (rs1.next())
-				{
-					
-					 IsMultiCharge = "Y".equals(rs1.getString("IsMultiCharge"));
-								
-				}
-			}
-			catch (SQLException e)
-			{
-				log.log(Level.SEVERE, sql, e);
-				return null;
-			}
-			finally {
-				DB.close(rs1, pstmt1);
-				rs1 = null; pstmt1 = null;
-			}
-			
-			if(!IsMultiCharge)
+//			boolean  IsMultiCharge = "N".equals("N");
+//			sql = "select IsMultiCharge from C_Payment where C_Payment_ID=?";
+//			PreparedStatement pstmt1 = null;
+//			ResultSet rs1 = null;
+//			try
+//			{
+//				pstmt1 = DB.prepareStatement(sql, null);
+//				pstmt1.setInt(1, p_GetID);
+//				rs1 = pstmt1.executeQuery();
+//				//
+//				while (rs1.next())
+//				{
+//					
+//					 IsMultiCharge = "Y".equals(rs1.getString("IsMultiCharge"));
+//								
+//				}
+//			}
+//			catch (SQLException e)
+//			{
+//				log.log(Level.SEVERE, sql, e);
+//				return null;
+//			}
+//			finally {
+//				DB.close(rs1, pstmt1);
+//				rs1 = null; pstmt1 = null;
+//			}
+//			
+//			if(!IsMultiCharge)
 //			{
 //				sql = "select paymentallocate.C_Tax_ID as C_Tax_ID ,t.Name as Name,t.Rate as Rate,paymentallocate.Amount as ChargeAmt,paymentallocate.TaxAmt as TaxAmt,t.IsSummary as IsSummary "
 //						 + " from C_Tax t,C_PaymentAllocate paymentallocate" 
@@ -113,7 +113,7 @@ public class UtilTax {
 			
 				sql = "select payment.C_Tax_ID as C_Tax_ID ,t.Name as Name,t.Rate as Rate,payment.PayAmt as ChargeAmt,payment.TaxAmt as TaxAmt,t.IsSummary as IsSummary "
 						 + " from C_Tax t,C_Payment payment" 
-						 + " Where t.C_Tax_ID=payment.C_Tax_ID AND payment.C_Payment_ID=?";
+						 + " Where t.C_Tax_ID=payment.C_Tax_ID AND t.AD_Client_ID=payment.AD_Client_ID AND t.AD_org_ID=payment.AD_org_ID AND payment.C_Payment_ID=?";
 			
 		}
 				
@@ -165,49 +165,49 @@ public class UtilTax {
 		{
 		 sql =               
 				 "select t.C_Tax_ID as C_Tax_ID ,t.Name as Name,t.Rate as Rate, cb.chargeamt as chargeAmt," 
-				+" FN_GET_TAX_AMOUNT_CHILD((cb.chargeamt-CB.TAXAMT),t.c_tax_id) as TaxAMount ,t.IsSummary as IsSummary"
+				+" FN_GET_TAX_AMOUNT_CHILD((cb.chargeamt-CB.TAXAMT),CB.c_tax_id,CB.ad_client_id,CB.ad_org_id) as TaxAMount ,t.IsSummary as IsSummary"
 				+" from C_Tax t, C_BankStatementLine CB"
-				+" Where t.parent_Tax_ID=CB.c_tax_id AND CB.C_BankStatement_ID=?";
+				+" Where t.parent_Tax_ID=CB.c_tax_id AND t.AD_Client_ID=CB.AD_Client_ID AND t.AD_org_ID=CB.AD_org_ID AND CB.C_BankStatement_ID=?";
 		}
 		
 		if(CASHJOURNAL.equalsIgnoreCase(p_Class))
 		{
 		 sql =               
 				 "select t.C_Tax_ID as C_Tax_ID ,t.Name as Name,t.Rate as Rate, cb.chargeamt as chargeAmt," 
-				+" FN_GET_TAX_AMOUNT_CHILD((cb.chargeamt-CB.TAXAMT),t.c_tax_id) as TaxAMount ,t.IsSummary as IsSummary"
+				+" FN_GET_TAX_AMOUNT_CHILD((cb.chargeamt-CB.TAXAMT),CB.c_tax_id,CB.ad_client_id,CB.ad_org_id) as TaxAMount ,t.IsSummary as IsSummary"
 				+" from C_Tax t, C_CashLine CB"
-				+" Where t.parent_Tax_ID=CB.c_tax_id AND CB.C_Cash_ID=?";
+				+" Where t.parent_Tax_ID=CB.c_tax_id AND t.AD_Client_ID=CB.AD_Client_ID AND t.AD_org_ID=CB.AD_org_ID AND CB.C_Cash_ID=?";
 		}
 		
 		if(PAYMENT.equalsIgnoreCase(p_Class))
 		{
-			boolean  IsMultiCharge = "N".equals("N");
-			sql = "select IsMultiCharge from C_Payment where C_Payment_ID=?";
-			PreparedStatement pstmt1 = null;
-			ResultSet rs1 = null;
-			try
-			{
-				pstmt1 = DB.prepareStatement(sql, null);
-				pstmt1.setInt(1, p_GetID);
-				rs1 = pstmt1.executeQuery();
-				//
-				while (rs1.next())
-				{
-					
-					 IsMultiCharge = "Y".equals(rs1.getString("IsMultiCharge"));
-								
-				}
-			}
-			catch (SQLException e)
-			{
-				log.log(Level.SEVERE, sql, e);
-				return null;
-			}
-			finally {
-				DB.close(rs1, pstmt1);
-				rs1 = null; pstmt1 = null;
-			}
-			if(!IsMultiCharge)
+//			boolean  IsMultiCharge = "N".equals("N");
+//			sql = "select IsMultiCharge from C_Payment where C_Payment_ID=?";
+//			PreparedStatement pstmt1 = null;
+//			ResultSet rs1 = null;
+//			try
+//			{
+//				pstmt1 = DB.prepareStatement(sql, null);
+//				pstmt1.setInt(1, p_GetID);
+//				rs1 = pstmt1.executeQuery();
+//				//
+//				while (rs1.next())
+//				{
+//					
+//					 IsMultiCharge = "Y".equals(rs1.getString("IsMultiCharge"));
+//								
+//				}
+//			}
+//			catch (SQLException e)
+//			{
+//				log.log(Level.SEVERE, sql, e);
+//				return null;
+//			}
+//			finally {
+//				DB.close(rs1, pstmt1);
+//				rs1 = null; pstmt1 = null;
+//			}
+//			if(!IsMultiCharge)
 //			{
 //				 sql =               
 //						 "select t.C_Tax_ID as C_Tax_ID ,t.Name as Name,t.Rate as Rate, paymentallocate.Amount as chargeAmt," 
@@ -220,9 +220,9 @@ public class UtilTax {
 		//	{
 				 sql =               
 						 "select t.C_Tax_ID as C_Tax_ID ,t.Name as Name,t.Rate as Rate, payment.payamt as chargeAmt," 
-						+" FN_GET_TAX_AMOUNT_CHILD((payment.payamt-payment.TAXAMT),t.c_tax_id) as TaxAMount ,t.IsSummary as IsSummary"
+						+" FN_GET_TAX_AMOUNT_CHILD((payment.payamt-payment.TAXAMT),payment.c_tax_id,payment.ad_client_id,payment.ad_org_id) as TaxAMount ,t.IsSummary as IsSummary"
 						+" from C_Tax t, C_Payment payment"
-						+" Where t.parent_Tax_ID=payment.c_tax_id AND payment.C_Payment_ID=?";
+						+" Where t.parent_Tax_ID=payment.c_tax_id AND t.AD_Client_ID=payment.AD_Client_ID AND t.AD_org_ID=payment.AD_org_ID AND payment.C_Payment_ID=?";
 		//	}
 		}
 		
