@@ -9,7 +9,7 @@ import javax.ejb.Remote;
  * Remote interface for compiere/MD5.
  */
 @Remote
-public interface MD51
+public interface MD5
 {
    public final static String JNDI_NAME = "ejb/compiere/MD5";
    
