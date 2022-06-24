@@ -3,7 +3,6 @@
 @Rem $Id: ImportCyprus.bat,V 1.1 2021/01/01 Sanjiv/Mukesh Exp $
 
 @Echo	Importing Cyprus DB from %CYPRUS_HOME%\data\Cyprus.dmp (%CYPRUS_DB_NAME%)
-
 @if (%CYPRUS_HOME%) == () goto environment
 @if (%CYPRUS_DB_NAME%) == () goto environment
 @if (%CYPRUS_DB_SERVER%) == () goto environment
@@ -12,16 +11,17 @@
 @if (%1) == () goto usage
 @if (%2) == () goto usage
 @if (%3) == () goto usage
-
 @echo -------------------------------------
 @echo Re-Create DB user
-@echo -------------------------------------
+@echo ------------------------------------- 
 @sqlplus %1@%CYPRUS_DB_SERVER%:%CYPRUS_DB_PORT%/%CYPRUS_DB_NAME% @%CYPRUS_HOME%\Utils\%CYPRUS_DB_PATH%\CreateUser.sql %2 %3
-
 @echo -------------------------------------
 @echo Import Cyprus.dmp
 @echo -------------------------------------
-@imp %1@%CYPRUS_DB_SERVER%:%CYPRUS_DB_PORT%/%CYPRUS_DB_NAME% FILE=%CYPRUS_HOME%\data\Cyprus.dmp FROMUSER=(reference) TOUSER=%2 STATISTICS=RECALCULATE
+
+@echo imp %1@%CYPRUS_DB_SERVER%:%CYPRUS_DB_PORT%/%CYPRUS_DB_NAME% FILE=%CYPRUS_HOME%\data\Cyprus.dmp FROMUSER=(reference) TOUSER=%2 STATISTICS=RECALCULATE
+
+@imp %CYPRUS_DB_USER%/%CYPRUS_DB_PASSWORD% FILE=%CYPRUS_HOME%\data\Cyprus.dmp full=Y
 
 echo -------------------------------------
 echo Create SQLJ 
