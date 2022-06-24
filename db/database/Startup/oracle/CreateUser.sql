@@ -13,6 +13,8 @@ SET ECHO ON
  *	Parameter: UserID UserPwd
  *	Run as system
  ************************************************************************/
+alter session set "_ORACLE_SCRIPT"=true
+/ 
 DROP USER &1 CASCADE
 /
 CREATE USER &1 IDENTIFIED BY &2
