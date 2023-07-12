@@ -165,6 +165,7 @@ html,body {
 .editor-button {
 	width: 26px;
 	padding: 0px;
+	height: 17px;
 }
 
 .editor-button img {
