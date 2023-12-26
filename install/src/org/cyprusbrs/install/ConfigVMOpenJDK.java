@@ -116,7 +116,7 @@ public class ConfigVMOpenJDK extends Config
 			if (pass)
 			  log.info("OK: Version=" + thisJV);
 		}
-		error = "Wrong Java Version (Open JDK): Should be " + VERSION11+"  "+jh;
+		error = "Wrong Java Version (Sun): Should be " + VERSION8;
 		if (getPanel() != null)
 			signalOK(getPanel().okJavaHome, "ErrorJavaHome",
 					pass, true, error);
