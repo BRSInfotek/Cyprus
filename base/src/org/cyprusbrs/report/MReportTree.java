@@ -24,6 +24,8 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import javax.swing.tree.TreeNode;
+
 import org.cyprusbrs.model.MAcctSchemaElement;
 import org.cyprusbrs.model.MHierarchy;
 import org.cyprusbrs.model.MTree;
@@ -233,11 +235,11 @@ public class MReportTree
 		if (node != null && node.isSummary ())
 		{
 			
-			Enumeration<MTreeNode> en = node.preorderEnumeration ();
+			Enumeration<TreeNode> en = node.preorderEnumeration ();
 			StringBuffer sb = new StringBuffer ();
 			while (en.hasMoreElements ())
 			{
-				MTreeNode nn = en.nextElement ();
+				MTreeNode nn = (MTreeNode) en.nextElement ();
 				if (!nn.isSummary ())
 				{
 					if (sb.length () > 0)

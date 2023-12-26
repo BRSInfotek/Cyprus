@@ -86,7 +86,8 @@ public class ConfigVMOpenJDK extends Config
 		final String VERSION = "1.5.0";
 		final String VERSION2 = "1.6.0";
 		final String VERSION8 = "1.8.0"; /// Update the Java Version by Mukesh
-		final String VERSION13 = "1.13.0"; /// Update the Java Version by Mukesh
+		final String VERSION11 = "11"; /// Update the Java Version by Mukesh
+		final String VERSION13 = "13"; /// Update the Java Version by Mukesh
 		pass = false;
 		String jh = javaHome.getAbsolutePath();
 		if (jh.indexOf(VERSION) != -1)	//	file name has version = assuming OK
@@ -94,6 +95,8 @@ public class ConfigVMOpenJDK extends Config
 		if (!pass && jh.indexOf(VERSION2) != -1)	//
 			pass = true;
 		if (!pass && jh.indexOf(VERSION8) != -1)	// /// Update the Java Version by Mukesh
+			pass = true;
+		if (!pass && jh.indexOf(VERSION11) != -1)	// /// Update the Java Version by Mukesh
 			pass = true;
 		if (!pass && jh.indexOf(VERSION13) != -1)	// /// Update the Java Version by Mukesh
 			pass = true;
@@ -106,12 +109,14 @@ public class ConfigVMOpenJDK extends Config
 				pass = true;
 			if (!pass && thisJV.indexOf(VERSION8) != -1) /// Update the Java Version by Mukesh
 				pass = true;
+			if (!pass && thisJV.indexOf(VERSION11) != -1) /// Update the Java Version by Mukesh
+				pass = true;
 			if (!pass && thisJV.indexOf(VERSION13) != -1) /// Update the Java Version by Mukesh
 				pass = true;
 			if (pass)
 			  log.info("OK: Version=" + thisJV);
 		}
-		error = "Wrong Java Version: Should be " + VERSION2;
+		error = "Wrong Java Version (Open JDK): Should be " + VERSION11+"  "+jh;
 		if (getPanel() != null)
 			signalOK(getPanel().okJavaHome, "ErrorJavaHome",
 					pass, true, error);
